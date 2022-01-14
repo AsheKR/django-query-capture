@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 from django.test import TestCase
 
-from django_query_capture import classify_captured_query
+from django_query_capture import CapturedQueryClassifier
 
 
 def create_dict_mock(*args, **kwargs):
@@ -19,7 +19,7 @@ class CapturedQueryClassifierTests(TestCase):
             create_dict_mock(raw_sql="UPDATE *"),
             create_dict_mock(raw_sql="DELETE *"),
         ]
-        result = classify_captured_query(captured_queries)
+        result = CapturedQueryClassifier(captured_queries)()
         self.assertEqual(result["read"], 1)
 
     def test_writes_count_when_not_raw_sql_startswith_select(self):
@@ -29,7 +29,7 @@ class CapturedQueryClassifierTests(TestCase):
             create_dict_mock(raw_sql="UPDATE *"),
             create_dict_mock(raw_sql="DELETE *"),
         ]
-        result = classify_captured_query(captured_queries)
+        result = CapturedQueryClassifier(captured_queries)()
         self.assertEqual(result["writes"], 3)
 
     def test_total_count(self):
@@ -39,8 +39,18 @@ class CapturedQueryClassifierTests(TestCase):
             create_dict_mock(raw_sql="UPDATE *"),
             create_dict_mock(raw_sql="DELETE *"),
         ]
-        result = classify_captured_query(captured_queries)
+        result = CapturedQueryClassifier(captured_queries)()
         self.assertEqual(result["total"], 4)
+
+    def test_total_duration(self):
+        captured_queries = [
+            create_dict_mock(duration=10.5),
+            create_dict_mock(duration=20.5),
+            create_dict_mock(duration=30.5),
+            create_dict_mock(duration=40.5),
+        ]
+        result = CapturedQueryClassifier(captured_queries)()
+        self.assertEqual(result["total_duration"], 102.0)
 
     def test_most_common_duplicates(self):
         captured_queries = [
@@ -49,7 +59,7 @@ class CapturedQueryClassifierTests(TestCase):
             create_dict_mock(sql="SELECT *"),
             create_dict_mock(sql="SELECT *"),
         ]
-        result = classify_captured_query(captured_queries)
+        result = CapturedQueryClassifier(captured_queries)()
         self.assertEqual(result["most_common_duplicates"], 3)
 
     def test_most_common_similar(self):
@@ -61,5 +71,5 @@ class CapturedQueryClassifierTests(TestCase):
                 raw_sql="INSERT (%s %s %s %s)", raw_params=(9, 0, "-", "=")
             ),
         ]
-        result = classify_captured_query(captured_queries)
+        result = CapturedQueryClassifier(captured_queries)()
         self.assertEqual(result["most_common_similar"], 3)

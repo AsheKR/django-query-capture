@@ -1,5 +1,6 @@
 import typing
 
+import time
 from collections import Counter
 from contextlib import ContextDecorator, ExitStack
 
@@ -19,6 +20,7 @@ class CapturedQuery(typing.TypedDict):
     raw_sql: str
     raw_params: str
     many: bool
+    duration: float
     context: CapturedQueryContext
 
 
@@ -71,42 +73,69 @@ class ClassifiedQuery(typing.TypedDict):
     captured_queries: typing.List[CapturedQuery]
 
 
-def classify_captured_query(
-    captured_queries: typing.List[CapturedQuery],
-) -> ClassifiedQuery:
-    duplicates_counter = Counter()
-    similar_counter = Counter()
-    stats: ClassifiedQuery = {
-        "read": 0,
-        "writes": 0,
-        "total": 0,
-        "most_common_duplicates": 0,
-        "most_common_similar": 0,
-        "duplicates_counter": duplicates_counter,
-        "similar_counter": similar_counter,
-        "captured_queries": captured_queries,
-    }
-    for capture_query in captured_queries:
-        if capture_query["raw_sql"].startswith("SELECT"):
-            stats["read"] += 1
-        else:
-            stats["writes"] += 1
-        stats["total"] += 1
-        if capture_query["sql"]:
-            duplicates_counter[capture_query["sql"]] += 1
-        similar_counter[capture_query["raw_sql"]] += 1
+class CapturedQueryClassifier:
+    def __init__(self, captured_queries: typing.List[CapturedQuery]):
+        self.captured_queries = captured_queries
 
-        duplicates = duplicates_counter.most_common(1)
-        if duplicates:
-            sql, count = duplicates[0]
+    def __call__(self) -> ClassifiedQuery:
+        stats = {
+            "read": self.get_read_count(),
+            "writes": self.get_writes_count(),
+            "total": self.get_total_count(),
+            "total_duration": self.get_total_duration(),
+            "most_common_duplicates": 0,
+            "most_common_similar": 0,
+            "duplicates_counter": self.get_most_common_duplicates(),
+            "similar_counter": self.get_most_common_similar(),
+            "captured_queries": self.captured_queries,
+        }
+        most_common_duplicates = self.get_most_common_duplicates()
+        if most_common_duplicates:
+            sql, count = most_common_duplicates[0]
             stats["most_common_duplicates"] = count
 
-        similar = similar_counter.most_common(1)
-        if similar:
-            sql, count = similar[0]
+        most_common_similar = self.get_most_common_similar()
+        if most_common_similar:
+            sql, count = most_common_similar[0]
             stats["most_common_similar"] = count
 
-    return stats
+        return stats
+
+    def get_read_count(self):
+        return sum(
+            1
+            for capture_query in self.captured_queries
+            if capture_query["raw_sql"].startswith("SELECT")
+        )
+
+    def get_writes_count(self):
+        return sum(
+            1
+            for capture_query in self.captured_queries
+            if not capture_query["raw_sql"].startswith("SELECT")
+        )
+
+    def get_total_count(self):
+        return len(self.captured_queries)
+
+    def get_total_duration(self) -> float:
+        return sum(capture_query["duration"] for capture_query in self.captured_queries)
+
+    def get_most_common_duplicates(self) -> typing.List[typing.Tuple[str, int]]:
+        duplicates_counter = Counter()
+        for capture_query in self.captured_queries:
+            if capture_query["sql"]:
+                duplicates_counter[capture_query["sql"]] += 1
+
+        return duplicates_counter.most_common(1)
+
+    def get_most_common_similar(self) -> typing.List[typing.Tuple[str, int]]:
+        similar_counter = Counter()
+        for capture_query in self.captured_queries:
+            if capture_query["raw_sql"]:
+                similar_counter[capture_query["raw_sql"]] += 1
+
+        return similar_counter.most_common(1)
 
 
 class BasePresenter:
@@ -123,6 +152,7 @@ class RawLinePresenter(BasePresenter):
             f'\ntotal: {self.classified_query["total"]}\n'
             f'read: {self.classified_query["read"]}\n'
             f'writes: {self.classified_query["writes"]}\n'
+            f'total_duration: {self.classified_query["total_duration"]}\n'
             f'most_common_duplicates: {self.classified_query["most_common_duplicates"]}\n'
             f'most_common_similar: {self.classified_query["most_common_similar"]}\n'
         )
