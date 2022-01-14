@@ -12,8 +12,8 @@ class ClassifiedQuery(typing.TypedDict):
     total_duration: float
     most_common_duplicates: int
     most_common_similar: int
-    duplicates_counter: typing.Counter[CapturedQuery]
-    similar_counter: typing.Counter[CapturedQuery]
+    duplicates_counter: typing.Counter
+    similar_counter: typing.Counter
     captured_queries: typing.List[CapturedQuery]
 
 

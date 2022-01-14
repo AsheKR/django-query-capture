@@ -8,5 +8,5 @@ from django_query_capture.classify import CapturedQueryClassifier
 class RawLinePresenterTests(TestCase):
     def test_print(self):
         with query_capture() as q:
-            [Reporter.objects.create(full_name="target-i") for i in range(10)]
+            [Reporter.objects.create(full_name="target-i") for i in range(11)]
             RawLinePresenter(CapturedQueryClassifier(q.captured_queries)()).print()
