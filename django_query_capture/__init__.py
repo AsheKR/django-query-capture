@@ -1,12 +1,29 @@
+import typing
+
 from contextlib import ContextDecorator, ExitStack
 
 from django.db import connection
+from django.db.backends.dummy.base import DatabaseWrapper
+from django.db.backends.utils import CursorWrapper
+
+
+class CapturedQueryContext(typing.TypedDict):
+    connection: DatabaseWrapper
+    cursor: CursorWrapper
+
+
+class CapturedQuery(typing.TypedDict):
+    sql: str
+    raw_sql: str
+    raw_params: str
+    many: bool
+    context: CapturedQueryContext
 
 
 class query_capture(ContextDecorator):
     def __init__(self):
         self._exit_stack = ExitStack().__enter__()
-        self.captured_queries = []
+        self.captured_queries: typing.List[CapturedQuery] = []
 
     def __enter__(self):
         self._exit_stack.enter_context(connection.execute_wrapper(self._save_queries))
