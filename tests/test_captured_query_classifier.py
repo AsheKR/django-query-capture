@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 from django.test import TestCase
 
-from django_query_capture import CapturedQueryClassifier
+from django_query_capture.classify import CapturedQueryClassifier
 
 
 def create_dict_mock(*args, **kwargs):
