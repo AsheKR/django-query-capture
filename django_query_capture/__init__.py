@@ -3,6 +3,7 @@ import typing
 from collections import Counter
 from contextlib import ContextDecorator, ExitStack
 
+import sqlparse
 from django.db import connection
 from django.db.backends.dummy.base import DatabaseWrapper
 from django.db.backends.utils import CursorWrapper
@@ -63,6 +64,7 @@ class ClassifiedQuery(typing.TypedDict):
     most_common_similar: int
     duplicates_counter: typing.Counter[str]
     similar_counter: typing.Counter[str]
+    captured_queries: typing.List[CapturedQuery]
 
 
 def classify_captured_query(
@@ -78,6 +80,7 @@ def classify_captured_query(
         "most_common_similar": 0,
         "duplicates_counter": duplicates_counter,
         "similar_counter": similar_counter,
+        "captured_queries": captured_queries,
     }
     for capture_query in captured_queries:
         if capture_query["raw_sql"].startswith("SELECT"):
@@ -100,3 +103,34 @@ def classify_captured_query(
             stats["most_common_similar"] = count
 
     return stats
+
+
+class BasePresenter:
+    def __init__(self, classified_query: ClassifiedQuery):
+        self.classified_query = classified_query
+
+    def print(self):
+        raise NotImplementedError
+
+
+class RawLinePresenter(BasePresenter):
+    def print(self):
+        print(
+            f'\ntotal: {self.classified_query["total"]}\n'
+            f'read: {self.classified_query["read"]}\n'
+            f'writes: {self.classified_query["writes"]}\n'
+            f'most_common_duplicates: {self.classified_query["most_common_duplicates"]}\n'
+            f'most_common_similar: {self.classified_query["most_common_similar"]}\n'
+        )
+
+        for query, count in self.classified_query["duplicates_counter"].items():
+            print(
+                f"Repeated {count} times.\n"
+                f'{sqlparse.format(query, reindent=True, keyword_case="upper")}'
+            )
+
+        for query, count in self.classified_query["similar_counter"].items():
+            print(
+                f"Similar {count} times.\n"
+                f'{sqlparse.format(query, reindent=True, keyword_case="upper")}'
+            )
