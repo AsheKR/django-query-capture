@@ -13,8 +13,6 @@
 [![License](https://img.shields.io/github/license/ashekr/django-query-capture)](https://github.com/ashekr/django-query-capture/blob/master/LICENSE)
 ![Coverage Report](assets/images/coverage.svg)
 
-Awesome `django-query-capture` is a Python cli/package created with https://github.com/TezRomacH/python-package-template
-
 </div>
 
 ## Installation
