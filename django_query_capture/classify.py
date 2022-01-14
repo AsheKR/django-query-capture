@@ -12,8 +12,8 @@ class ClassifiedQuery(typing.TypedDict):
     total_duration: float
     most_common_duplicates: int
     most_common_similar: int
-    duplicates_counter: typing.Counter
-    similar_counter: typing.Counter
+    duplicates_counter: typing.Counter[str]
+    similar_counter: typing.Counter[str]
     captured_queries: typing.List[CapturedQuery]
 
 
@@ -65,16 +65,16 @@ class CapturedQueryClassifier:
     def get_total_duration(self) -> float:
         return sum(capture_query["duration"] for capture_query in self.captured_queries)
 
-    def get_duplicates_counter(self) -> typing.Counter[CapturedQuery]:
-        duplicates_counter = Counter()
+    def get_duplicates_counter(self) -> typing.Counter[str]:
+        duplicates_counter: typing.Counter[str] = Counter()
         for capture_query in self.captured_queries:
             if capture_query["sql"]:
                 duplicates_counter[capture_query["sql"]] += 1
 
         return duplicates_counter
 
-    def get_similar_counter(self) -> typing.Counter[CapturedQuery]:
-        similar_counter = Counter()
+    def get_similar_counter(self) -> typing.Counter[str]:
+        similar_counter: typing.Counter[str] = Counter()
         for capture_query in self.captured_queries:
             if capture_query["raw_sql"]:
                 similar_counter[capture_query["raw_sql"]] += 1
