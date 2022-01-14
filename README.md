@@ -31,6 +31,8 @@ poetry add django-query-capture
 
 [![License](https://img.shields.io/github/license/ashekr/django-query-capture)](https://github.com/ashekr/django-query-capture/blob/master/LICENSE)
 
+This project is licensed under the terms of the `MIT` license. See [LICENSE](https://github.com/ashekr/django-query-capture/blob/master/LICENSE) for more details.
+
 
 ## Very first steps
 
