@@ -1,5 +1,6 @@
 import typing
 
+from collections import Counter
 from contextlib import ContextDecorator, ExitStack
 
 from django.db import connection
@@ -52,3 +53,50 @@ class query_capture(ContextDecorator):
         )
 
         return result
+
+
+class ClassifiedQuery(typing.TypedDict):
+    read: int
+    writes: int
+    total: int
+    most_common_duplicates: int
+    most_common_similar: int
+    duplicates_counter: typing.Counter[str]
+    similar_counter: typing.Counter[str]
+
+
+def classify_captured_query(
+    captured_queries: typing.List[CapturedQuery],
+) -> ClassifiedQuery:
+    duplicates_counter = Counter()
+    similar_counter = Counter()
+    stats: ClassifiedQuery = {
+        "read": 0,
+        "writes": 0,
+        "total": 0,
+        "most_common_duplicates": 0,
+        "most_common_similar": 0,
+        "duplicates_counter": duplicates_counter,
+        "similar_counter": similar_counter,
+    }
+    for capture_query in captured_queries:
+        if capture_query["raw_sql"].startswith("SELECT"):
+            stats["read"] += 1
+        else:
+            stats["writes"] += 1
+        stats["total"] += 1
+        if capture_query["sql"]:
+            duplicates_counter[capture_query["sql"]] += 1
+        similar_counter[capture_query["raw_sql"]] += 1
+
+        duplicates = duplicates_counter.most_common(1)
+        if duplicates:
+            sql, count = duplicates[0]
+            stats["most_common_duplicates"] = count
+
+        similar = similar_counter.most_common(1)
+        if similar:
+            sql, count = similar[0]
+            stats["most_common_similar"] = count
+
+    return stats
