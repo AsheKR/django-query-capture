@@ -68,8 +68,8 @@ class ClassifiedQuery(typing.TypedDict):
     total_duration: float
     most_common_duplicates: int
     most_common_similar: int
-    duplicates_counter: typing.Counter[str]
-    similar_counter: typing.Counter[str]
+    duplicates_counter: typing.Counter[CapturedQuery]
+    similar_counter: typing.Counter[CapturedQuery]
     captured_queries: typing.List[CapturedQuery]
 
 
@@ -78,23 +78,23 @@ class CapturedQueryClassifier:
         self.captured_queries = captured_queries
 
     def __call__(self) -> ClassifiedQuery:
-        stats = {
+        stats: ClassifiedQuery = {
             "read": self.get_read_count(),
             "writes": self.get_writes_count(),
             "total": self.get_total_count(),
             "total_duration": self.get_total_duration(),
             "most_common_duplicates": 0,
             "most_common_similar": 0,
-            "duplicates_counter": self.get_most_common_duplicates(),
-            "similar_counter": self.get_most_common_similar(),
+            "duplicates_counter": self.get_duplicates_counter(),
+            "similar_counter": self.get_similar_counter(),
             "captured_queries": self.captured_queries,
         }
-        most_common_duplicates = self.get_most_common_duplicates()
+        most_common_duplicates = stats["duplicates_counter"].most_common(1)
         if most_common_duplicates:
             sql, count = most_common_duplicates[0]
             stats["most_common_duplicates"] = count
 
-        most_common_similar = self.get_most_common_similar()
+        most_common_similar = stats["similar_counter"].most_common(1)
         if most_common_similar:
             sql, count = most_common_similar[0]
             stats["most_common_similar"] = count
@@ -121,21 +121,21 @@ class CapturedQueryClassifier:
     def get_total_duration(self) -> float:
         return sum(capture_query["duration"] for capture_query in self.captured_queries)
 
-    def get_most_common_duplicates(self) -> typing.List[typing.Tuple[str, int]]:
+    def get_duplicates_counter(self) -> typing.Counter[CapturedQuery]:
         duplicates_counter = Counter()
         for capture_query in self.captured_queries:
             if capture_query["sql"]:
                 duplicates_counter[capture_query["sql"]] += 1
 
-        return duplicates_counter.most_common(1)
+        return duplicates_counter
 
-    def get_most_common_similar(self) -> typing.List[typing.Tuple[str, int]]:
+    def get_similar_counter(self) -> typing.Counter[CapturedQuery]:
         similar_counter = Counter()
         for capture_query in self.captured_queries:
             if capture_query["raw_sql"]:
                 similar_counter[capture_query["raw_sql"]] += 1
 
-        return similar_counter.most_common(1)
+        return similar_counter
 
 
 class BasePresenter:
