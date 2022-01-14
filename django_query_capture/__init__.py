@@ -1,15 +1,37 @@
-# type: ignore[attr-defined]
-"""Awesome `django-query-capture` is a Python cli/package created with https://github.com/TezRomacH/python-package-template"""
+from contextlib import ContextDecorator, ExitStack
 
-import sys
-from importlib import metadata as importlib_metadata
+from django.db import connection
 
 
-def get_version() -> str:
-    try:
-        return importlib_metadata.version(__name__)
-    except importlib_metadata.PackageNotFoundError:  # pragma: no cover
-        return "unknown"
+class query_capture(ContextDecorator):
+    def __init__(self):
+        self._exit_stack = ExitStack().__enter__()
+        self.captured_queries = []
 
+    def __enter__(self):
+        self._exit_stack.enter_context(connection.execute_wrapper(self._save_queries))
+        return self
 
-version: str = get_version()
+    def __exit__(self, exc_type, exc_value, traceback):
+        self._exit_stack.close()
+        self._exit_stack.__exit__(None, None, None)
+
+    def __getattr__(self, item):
+        return self.captured_queries[item]
+
+    def __len__(self):
+        return len(self.captured_queries)
+
+    def _save_queries(self, execute, sql, params, many, context):
+        result = execute(sql, params, many, context)
+        self.captured_queries.append(
+            {
+                "sql": sql % params if params else sql,
+                "raw_sql": sql,
+                "raw_params": params,
+                "many": many,
+                "context": context,
+            }
+        )
+
+        return result
