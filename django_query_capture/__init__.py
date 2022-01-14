@@ -26,7 +26,7 @@ class query_capture(ContextDecorator):
         result = execute(sql, params, many, context)
         self.captured_queries.append(
             {
-                "sql": sql % params if params else sql,
+                "sql": sql % tuple(params) if params else sql,
                 "raw_sql": sql,
                 "raw_params": params,
                 "many": many,
