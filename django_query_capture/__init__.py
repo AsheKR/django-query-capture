@@ -42,13 +42,16 @@ class query_capture(ContextDecorator):
         return len(self.captured_queries)
 
     def _save_queries(self, execute, sql, params, many, context):
+        start_timestamp = time.monotonic()
         result = execute(sql, params, many, context)
+        duration = time.monotonic() - start_timestamp
         self.captured_queries.append(
             {
                 "sql": sql % tuple(params) if params else sql,
                 "raw_sql": sql,
                 "raw_params": params,
                 "many": many,
+                "duration": duration,
                 "context": context,
             }
         )
@@ -60,6 +63,7 @@ class ClassifiedQuery(typing.TypedDict):
     read: int
     writes: int
     total: int
+    total_duration: float
     most_common_duplicates: int
     most_common_similar: int
     duplicates_counter: typing.Counter[str]
