@@ -6,14 +6,12 @@ from django.utils.module_loading import import_string
 
 from .capture import native_query_capture
 from .classify import CapturedQueryClassifier
-from .presenter import BasePresenter, RawLinePresenter
+from .presenter import BasePresenter
 from .utils import get_value_from_django_settings
 
 __all__ = [
     "query_capture",
     "native_query_capture",
-    "BasePresenter",
-    "RawLinePresenter",
 ]
 
 
