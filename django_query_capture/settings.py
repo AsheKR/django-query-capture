@@ -11,6 +11,7 @@ CONFIG_DEFAULTS = {
         "SLOW_MIN_TIME": 1,
         "DUPLICATE_MIN_COUNT": 10,
         "SIMILAR_MIN_COUNT": 10,
+        "COLOR": "yellow",
     },
     "PRESENTER": "django_query_capture.presenter.RawLinePresenter",
     "IGNORE_SQL_PATTERNS": [],
