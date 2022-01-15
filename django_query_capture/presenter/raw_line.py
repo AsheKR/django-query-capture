@@ -1,4 +1,8 @@
-from django_query_capture.classify import ClassifiedQuery
+from django_query_capture.classify import (
+    ClassifiedQuery,
+    DuplicateHashableCapturedQueryDict,
+)
+from django_query_capture.settings import get_config
 
 from ..printer import (
     DuplicateMinCountPrinter,
@@ -27,4 +31,16 @@ class RawLinePresenter(BasePresenter):
             DuplicateMinCountPrinter.print(captured_query, count=count)
 
         for captured_query, count in classified_query["similar_counter"].items():
+            duplicated_hashable_captured_query = DuplicateHashableCapturedQueryDict(
+                captured_query
+            )
+            if (
+                duplicated_hashable_captured_query
+                in classified_query["duplicates_counter"]
+                and classified_query["duplicates_counter"][
+                    duplicated_hashable_captured_query
+                ]
+                > get_config()["PRINT_THRESHOLDS"]["DUPLICATE_MIN_COUNT"]
+            ):
+                continue
             SimilarMinCountPrinter.print(captured_query, count=count)
