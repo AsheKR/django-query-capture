@@ -44,9 +44,11 @@ class BaseLinePrinter:
 
     @staticmethod
     def is_allow_pattern(query: str) -> bool:
-        return not filter(
-            lambda pattern: re.compile(pattern).search(query),
-            get_value_from_django_settings("IGNORE_SQL_PATTERNS"),
+        return not list(
+            filter(
+                lambda pattern: re.compile(pattern).search(query),
+                get_value_from_django_settings("IGNORE_SQL_PATTERNS"),
+            )
         )
 
     @classmethod
