@@ -1,6 +1,6 @@
 from django.utils import termcolors
 
-from django_query_capture import get_config
+from django_query_capture.settings import get_config
 
 
 def colorize(value: str, is_warning: bool) -> str:
