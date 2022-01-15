@@ -1,3 +1,11 @@
+import typing
+
+from functools import lru_cache
+
+from django.conf import settings
+from django.core.signals import setting_changed
+from django.dispatch import receiver
+
 CONFIG_DEFAULTS = {
     "PRINT_THRESHOLDS": {
         "SLOW_MIN_TIME": 1,
@@ -6,6 +14,22 @@ CONFIG_DEFAULTS = {
     },
     "PRESENTER": "django_query_capture.presenter.RawLinePresenter",
     "IGNORE_SQL_PATTERNS": [],
-    "IGNORE_REQUEST_PATTERNS": [],
     "PRETTY": {"TABLE_FORMAT": "pretty", "SQL_COLOR_FORMAT": "friendly"},
 }
+
+
+@lru_cache
+def get_config() -> typing.Dict[str, typing.Any]:
+    USER_CONFIG = getattr(settings, "QUERY_CAPTURE", {})
+    CONFIG = CONFIG_DEFAULTS.copy()
+    CONFIG.update(USER_CONFIG)
+    return CONFIG
+
+
+@receiver(setting_changed)
+def update_toolbar_config(*, setting, **kwargs):
+    """
+    Refresh configuration when overriding settings.
+    """
+    if setting == "QUERY_CAPTURE":
+        get_config.cache_clear()

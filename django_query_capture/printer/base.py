@@ -6,7 +6,8 @@ from pygments.formatters.terminal256 import TerminalTrueColorFormatter
 from pygments.lexers.sql import SqlLexer
 
 from django_query_capture.capture import CapturedQuery
-from django_query_capture.utils import colorize, get_value_from_django_settings
+from django_query_capture.settings import get_config
+from django_query_capture.utils import colorize
 
 
 class BaseLinePrinter:
@@ -23,7 +24,7 @@ class BaseLinePrinter:
         return not list(
             filter(
                 lambda pattern: re.compile(pattern).search(query),
-                get_value_from_django_settings("IGNORE_SQL_PATTERNS"),
+                get_config()["IGNORE_SQL_PATTERNS"],
             )
         )
 
@@ -44,9 +45,7 @@ class BaseLinePrinter:
                     cls.get_formatted_sql(captured_query),
                     SqlLexer(),
                     TerminalTrueColorFormatter(
-                        style=get_value_from_django_settings("PRETTY")[
-                            "SQL_COLOR_FORMAT"
-                        ]
+                        style=get_config()["PRETTY"]["SQL_COLOR_FORMAT"]
                     ),
                 )
             )
@@ -61,7 +60,7 @@ class SlowMinTimePrinter(BaseLinePrinter):
     def is_allow_print(captured_query: CapturedQuery, count: int = 0) -> bool:
         return (
             captured_query["duration"]
-            > get_value_from_django_settings("PRINT_THRESHOLDS")["SLOW_MIN_TIME"]
+            > get_config()["PRINT_THRESHOLDS"]["SLOW_MIN_TIME"]
         )
 
     @classmethod
@@ -87,10 +86,7 @@ class DuplicateMinCountPrinter(BaseLinePrinter):
 
     @staticmethod
     def is_allow_print(captured_query: CapturedQuery, count: int = 0) -> bool:
-        return (
-            count
-            > get_value_from_django_settings("PRINT_THRESHOLDS")["DUPLICATE_MIN_COUNT"]
-        )
+        return count > get_config()["PRINT_THRESHOLDS"]["DUPLICATE_MIN_COUNT"]
 
     @classmethod
     def print(
@@ -115,10 +111,7 @@ class SimilarMinCountPrinter(BaseLinePrinter):
 
     @staticmethod
     def is_allow_print(captured_query: CapturedQuery, count: int = 0) -> bool:
-        return (
-            count
-            > get_value_from_django_settings("PRINT_THRESHOLDS")["SIMILAR_MIN_COUNT"]
-        )
+        return count > get_config()["PRINT_THRESHOLDS"]["SIMILAR_MIN_COUNT"]
 
     @classmethod
     def print(

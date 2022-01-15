@@ -1,7 +1,7 @@
 import re
 
 from django_query_capture.classify import ClassifiedQuery
-from django_query_capture.utils import get_value_from_django_settings
+from django_query_capture.settings import get_config
 
 
 class BasePresenter:
@@ -14,6 +14,6 @@ class BasePresenter:
         return not list(
             filter(
                 lambda pattern: re.compile(pattern).search(query),
-                get_value_from_django_settings("IGNORE_SQL_PATTERNS"),
+                get_config()["IGNORE_SQL_PATTERNS"],
             )
         )
