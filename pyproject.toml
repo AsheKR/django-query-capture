@@ -14,7 +14,9 @@ repository = "https://github.com/ashekr/django-query-capture"
 homepage = "https://github.com/ashekr/django-query-capture"
 
 # Keywords description https://python-poetry.org/docs/pyproject/#keywords
-keywords = []  #! Update me
+keywords = [
+  "django", "query", "performance", "database", "n+1"
+]
 
 # Pypi classifiers: https://pypi.org/classifiers/
 classifiers = [  #! Update me
