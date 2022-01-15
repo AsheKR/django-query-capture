@@ -1,9 +1,12 @@
 import re
 
 import sqlparse
+from pygments import highlight
+from pygments.formatters.terminal256 import TerminalTrueColorFormatter
+from pygments.lexers.sql import SqlLexer
 
 from django_query_capture.capture import CapturedQuery
-from django_query_capture.utils import get_value_from_django_settings
+from django_query_capture.utils import colorize, get_value_from_django_settings
 
 
 class BaseLinePrinter:
@@ -25,12 +28,24 @@ class BaseLinePrinter:
         )
 
     @classmethod
-    def print(cls, captured_query: CapturedQuery, prefix="", count: int = 0) -> None:
+    def print(
+        cls, captured_query: CapturedQuery, prefix="", count: int = 0, is_warning=False
+    ) -> None:
         if cls.is_allow_pattern(captured_query["sql"]) and cls.is_allow_print(
             captured_query, count
         ):
-            print(prefix)
-            print(cls.get_formatted_sql(captured_query))
+            print(colorize(prefix, is_warning))
+            print(
+                highlight(
+                    cls.get_formatted_sql(captured_query),
+                    SqlLexer(),
+                    TerminalTrueColorFormatter(
+                        style=get_value_from_django_settings("PRETTY")[
+                            "SQL_COLOR_FORMAT"
+                        ]
+                    ),
+                )
+            )
 
 
 class SlowMinTimePrinter(BaseLinePrinter):
@@ -47,12 +62,17 @@ class SlowMinTimePrinter(BaseLinePrinter):
 
     @classmethod
     def print(
-        cls, captured_query: CapturedQuery, prefix: str = "", count: int = 0
+        cls,
+        captured_query: CapturedQuery,
+        prefix: str = "",
+        count: int = 0,
+        is_warning=False,
     ) -> None:
         super().print(
             captured_query,
             prefix=prefix or f'Slow {captured_query["duration"]:.2f} seconds.',
             count=count,
+            is_warning=is_warning,
         )
 
 
@@ -70,10 +90,17 @@ class DuplicateMinCountPrinter(BaseLinePrinter):
 
     @classmethod
     def print(
-        cls, captured_query: CapturedQuery, prefix: str = "", count: int = 0
+        cls,
+        captured_query: CapturedQuery,
+        prefix: str = "",
+        count: int = 0,
+        is_warning: bool = False,
     ) -> None:
         super().print(
-            captured_query, prefix=prefix or f"Repeated {count} times", count=count
+            captured_query,
+            prefix=prefix or f"Repeated {count} times",
+            count=count,
+            is_warning=is_warning,
         )
 
 
@@ -91,8 +118,15 @@ class SimilarMinCountPrinter(BaseLinePrinter):
 
     @classmethod
     def print(
-        cls, captured_query: CapturedQuery, prefix: str = "", count: int = 0
+        cls,
+        captured_query: CapturedQuery,
+        prefix: str = "",
+        count: int = 0,
+        is_warning=False,
     ) -> None:
         super().print(
-            captured_query, prefix=prefix or f"Similar {count} times", count=count
+            captured_query,
+            prefix=prefix or f"Similar {count} times",
+            count=count,
+            is_warning=is_warning,
         )
