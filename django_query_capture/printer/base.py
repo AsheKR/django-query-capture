@@ -29,7 +29,11 @@ class BaseLinePrinter:
 
     @classmethod
     def print(
-        cls, captured_query: CapturedQuery, prefix="", count: int = 0, is_warning=False
+        cls,
+        captured_query: CapturedQuery,
+        prefix: str = "",
+        count: int = 0,
+        is_warning: bool = False,
     ) -> None:
         if cls.is_allow_pattern(captured_query["sql"]) and cls.is_allow_print(
             captured_query, count
@@ -66,7 +70,7 @@ class SlowMinTimePrinter(BaseLinePrinter):
         captured_query: CapturedQuery,
         prefix: str = "",
         count: int = 0,
-        is_warning=False,
+        is_warning: bool = False,
     ) -> None:
         super().print(
             captured_query,
@@ -122,7 +126,7 @@ class SimilarMinCountPrinter(BaseLinePrinter):
         captured_query: CapturedQuery,
         prefix: str = "",
         count: int = 0,
-        is_warning=False,
+        is_warning: bool = False,
     ) -> None:
         super().print(
             captured_query,

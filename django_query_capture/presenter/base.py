@@ -6,7 +6,7 @@ from django_query_capture.utils import get_value_from_django_settings
 
 class BasePresenter:
     @staticmethod
-    def print(classified_query: ClassifiedQuery):
+    def print(classified_query: ClassifiedQuery) -> None:
         raise NotImplementedError
 
     @staticmethod

@@ -1,6 +1,3 @@
-import re
-
-from django.utils import termcolors
 from tabulate import tabulate
 
 from django_query_capture import BasePresenter
@@ -23,7 +20,7 @@ class PrettyPresenter(BasePresenter):
         return f"{value:.2f}" if isinstance(value, float) else value
 
     @classmethod
-    def get_is_warning(cls, classified_query: ClassifiedQuery):
+    def get_is_warning(cls, classified_query: ClassifiedQuery) -> bool:
         for captured_query, count in classified_query["duplicates_counter"].items():
             if cls.is_allow_pattern(captured_query["sql"]):
                 if (
@@ -54,10 +51,12 @@ class PrettyPresenter(BasePresenter):
                 ):
                     return True
 
+        return False
+
     @classmethod
     def get_stats_table(
         cls, classified_query: ClassifiedQuery, is_warning: bool = False
-    ):
+    ) -> str:
         return colorize(
             tabulate(
                 [
@@ -74,7 +73,7 @@ class PrettyPresenter(BasePresenter):
         )
 
     @classmethod
-    def print(cls, classified_query: ClassifiedQuery):
+    def print(cls, classified_query: ClassifiedQuery) -> None:
         is_warning = cls.get_is_warning(classified_query)
         print("\n" + cls.get_stats_table(classified_query, is_warning=is_warning))
 

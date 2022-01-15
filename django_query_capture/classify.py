@@ -17,18 +17,17 @@ class ClassifiedQuery(typing.TypedDict):
     captured_queries: typing.List[CapturedQuery]
 
 
-class DuplicateHashableCapturedQueryDict(dict):
-    def __hash__(self: CapturedQuery):
+class DuplicateHashableCapturedQueryDict(typing.Dict[str, typing.Any]):
+    def __hash__(self):
         return hash(self["sql"])
 
     def __eq__(self, other):
         return hash(self["sql"]) == hash(other["sql"])
 
 
-class SimilarHashableCapturedQueryDict(dict):
-    def __hash__(self: CapturedQuery):
-        result = hash(self["raw_sql"])
-        return result
+class SimilarHashableCapturedQueryDict(typing.Dict[str, typing.Any]):
+    def __hash__(self) -> int:
+        return hash(self["raw_sql"])
 
     def __eq__(self, other):
         return hash(self["raw_sql"]) == hash(other["raw_sql"])

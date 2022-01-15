@@ -10,7 +10,7 @@ from .base import BasePresenter
 
 class RawLinePresenter(BasePresenter):
     @staticmethod
-    def print(classified_query: ClassifiedQuery):
+    def print(classified_query: ClassifiedQuery) -> None:
         print(
             f'\ntotal: {classified_query["total"]}\n'
             f'read: {classified_query["read"]}\n'

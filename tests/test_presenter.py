@@ -1,8 +1,9 @@
 from django.test import TestCase
 from news.models import Reporter
 
-from django_query_capture import RawLinePresenter, native_query_capture, query_capture
+from django_query_capture import native_query_capture
 from django_query_capture.classify import CapturedQueryClassifier
+from django_query_capture.presenter import RawLinePresenter
 
 
 class RawLinePresenterTests(TestCase):

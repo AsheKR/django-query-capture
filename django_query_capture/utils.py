@@ -8,7 +8,7 @@ def get_value_from_django_settings(key):
     return getattr(settings, key, CONFIG_DEFAULTS[key])
 
 
-def colorize(value, is_warning):
+def colorize(value: str, is_warning: bool) -> str:
     if is_warning:
         return termcolors.make_style(fg="yellow")(value)
     return value
