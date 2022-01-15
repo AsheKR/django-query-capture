@@ -10,6 +10,7 @@ from .presenter import BasePresenter
 from .utils import get_value_from_django_settings
 
 __all__ = [
+    "BasePresenter",
     "query_capture",
     "native_query_capture",
 ]
