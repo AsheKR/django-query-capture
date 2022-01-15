@@ -7,6 +7,7 @@ from django_query_capture.classify import CapturedQueryClassifier
 
 def create_dict_mock(*args, **kwargs):
     mock = MagicMock(*args, **kwargs)
+    mock.keys.side_effect = lambda: dir(mock)
     mock.__getitem__.side_effect = lambda x: getattr(mock, x)
     return mock
 

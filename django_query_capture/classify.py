@@ -85,6 +85,7 @@ class CapturedQueryClassifier:
         duplicates_counter: typing.Counter[CapturedQuery] = Counter()
         for capture_query in self.captured_queries:
             if capture_query["sql"]:
+                a = DuplicateHashableCapturedQueryDict(capture_query)
                 duplicates_counter[
                     DuplicateHashableCapturedQueryDict(capture_query)
                 ] += 1
