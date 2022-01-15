@@ -1,7 +1,7 @@
-from .capture import query_capture
+from .capture import native_query_capture
 from .presenter import *
 
 __all__ = [
-    "query_capture",
+    "native_query_capture",
     "RawLinePresenter",
 ]

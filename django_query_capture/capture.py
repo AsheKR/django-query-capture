@@ -22,7 +22,7 @@ class CapturedQuery(typing.TypedDict):
     context: CapturedQueryContext
 
 
-class query_capture(ContextDecorator):
+class native_query_capture(ContextDecorator):
     def __init__(self):
         self._exit_stack = ExitStack().__enter__()
         self.captured_queries: typing.List[CapturedQuery] = []

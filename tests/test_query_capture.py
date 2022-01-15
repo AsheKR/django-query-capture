@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils import timezone
 from news.models import Article, Reporter
 
-from django_query_capture import query_capture
+from django_query_capture import native_query_capture
 
 
 class QueryCaptureTests(TestCase):
@@ -12,7 +12,7 @@ class QueryCaptureTests(TestCase):
         Reporter.objects.create(full_name="target")
 
     def test_capture_query_in_context_manager(self):
-        with query_capture() as q:
+        with native_query_capture() as q:
             r = Reporter.objects.create(full_name="target-1")
             Article.objects.create(
                 pub_date=timezone.now().date(),
@@ -25,5 +25,5 @@ class QueryCaptureTests(TestCase):
     # TODO: Change to a test to see if the query is captured when using Decorator.
     def test_capture_query_in_decorator(self):
         func = Mock()
-        query_capture()(func)()
+        native_query_capture()(func)()
         self.assertTrue(func.called)
