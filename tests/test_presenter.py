@@ -9,4 +9,4 @@ class RawLinePresenterTests(TestCase):
     def test_print(self):
         with native_query_capture() as q:
             [Reporter.objects.create(full_name=f"target-{i}") for i in range(11)]
-            RawLinePresenter(CapturedQueryClassifier(q.captured_queries)()).print()
+            RawLinePresenter.print(CapturedQueryClassifier(q.captured_queries)())

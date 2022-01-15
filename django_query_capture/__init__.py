@@ -12,6 +12,7 @@ from .utils import get_value_from_django_settings
 __all__ = [
     "query_capture",
     "native_query_capture",
+    "BasePresenter",
     "RawLinePresenter",
 ]
 
@@ -29,7 +30,7 @@ class query_capture(ContextDecorator):
         return self.native_query_capture
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.presenter_cls(
+        self.presenter_cls.print(
             CapturedQueryClassifier(self.native_query_capture.captured_queries)()
-        ).print()
+        )
         self._exit_stack.close()

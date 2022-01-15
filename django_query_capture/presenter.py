@@ -7,33 +7,32 @@ from django_query_capture.utils import get_value_from_django_settings
 
 
 class BasePresenter:
-    def __init__(self, classified_query: ClassifiedQuery):
-        self.classified_query = classified_query
-
-    def print(self):
+    @staticmethod
+    def print(classified_query: ClassifiedQuery):
         raise NotImplementedError
 
 
 class RawLinePresenter(BasePresenter):
-    def print(self):
+    @staticmethod
+    def print(classified_query: ClassifiedQuery):
         print(
-            f'\ntotal: {self.classified_query["total"]}\n'
-            f'read: {self.classified_query["read"]}\n'
-            f'writes: {self.classified_query["writes"]}\n'
-            f'total_duration: {self.classified_query["total_duration"]:.2f}\n'
-            f'most_common_duplicates: {self.classified_query["most_common_duplicates"]}\n'
-            f'most_common_similar: {self.classified_query["most_common_similar"]}\n'
+            f'\ntotal: {classified_query["total"]}\n'
+            f'read: {classified_query["read"]}\n'
+            f'writes: {classified_query["writes"]}\n'
+            f'total_duration: {classified_query["total_duration"]:.2f}\n'
+            f'most_common_duplicates: {classified_query["most_common_duplicates"]}\n'
+            f'most_common_similar: {classified_query["most_common_similar"]}\n'
         )
 
-        for captured_query in self.classified_query["captured_queries"]:
+        for captured_query in classified_query["captured_queries"]:
             SlowMinTimePrinter.print(
                 captured_query["sql"], duration=captured_query["duration"]
             )
 
-        for query, count in self.classified_query["duplicates_counter"].items():
+        for query, count in classified_query["duplicates_counter"].items():
             DuplicateMinCountPrinter.print(query, count=count)
 
-        for query, count in self.classified_query["similar_counter"].items():
+        for query, count in classified_query["similar_counter"].items():
             SimilarMinCountPrinter.print(query, count=count)
 
 
