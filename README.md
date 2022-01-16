@@ -114,7 +114,7 @@ QUERY_CAPTURE = {
         "SIMILAR_MIN_COUNT": 10,  # 비슷한 중복 개수
         "COLOR": "yellow",  # 임계치를 넘었을 시 출력에 사용 할 색
     },
-    "PRESENTER": "django_query_capture.presenter.PrettyPresenter",  # 콘솔에 데이터를 그리는 Presenter 클래스
+    "PRESENTER": "django_query_capture.presenter.PrettyPresenter",  # 콘솔에 출력하는 Presenter 클래스
     "IGNORE_SQL_PATTERNS": [],  # 캡쳐하지 않을 regex 패턴 목록
     "PRETTY": {"TABLE_FORMAT": "pretty", "SQL_COLOR_FORMAT": "friendly"},  # PrettyPresenter 를 사용했을 때 커스텀할 수 있는 세팅 값
 }
