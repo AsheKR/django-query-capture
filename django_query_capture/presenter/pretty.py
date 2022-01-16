@@ -13,7 +13,7 @@ from .base import BasePresenter
 
 class PrettyPresenter(BasePresenter):
     def get_stack_prefix(self, captured_query: CapturedQuery):
-        return f'[{captured_query["file_name"]}::{captured_query["function_name"]}::{captured_query["line_no"]}]'
+        return f'[{captured_query["function_name"]}, {captured_query["file_name"]}:{captured_query["line_no"]}]'
 
     @staticmethod
     def print_sql(sql: str) -> None:
