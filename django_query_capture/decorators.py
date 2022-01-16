@@ -23,7 +23,7 @@ class query_capture(ContextDecorator):
         return self.native_query_capture
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.presenter_cls.print(
+        self.presenter_cls(
             CapturedQueryClassifier(self.native_query_capture.captured_queries)()
-        )
+        ).print()
         self._exit_stack.close()

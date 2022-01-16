@@ -64,27 +64,30 @@ class PrettyPresenter(BasePresenter):
             is_warning,
         )
 
-    @classmethod
-    def print(cls, classified_query: ClassifiedQuery) -> None:
-        is_warning = cls.get_is_warning(classified_query)
-        print("\n" + cls.get_stats_table(classified_query, is_warning=is_warning))
+    def print(self) -> None:
+        is_warning = self.get_is_warning(self._classified_query)
+        print(
+            "\n" + self.get_stats_table(self._classified_query, is_warning=is_warning)
+        )
 
-        for captured_query in classified_query["captured_queries"]:
+        for captured_query in self._classified_query["captured_queries"]:
             SlowMinTimePrinter.print(captured_query, is_warning=is_warning)
 
-        for captured_query, count in classified_query["duplicates_counter"].items():
+        for captured_query, count in self._classified_query[
+            "duplicates_counter"
+        ].items():
             DuplicateMinCountPrinter.print(
                 captured_query, count=count, is_warning=is_warning
             )
 
-        for captured_query, count in classified_query["similar_counter"].items():
+        for captured_query, count in self._classified_query["similar_counter"].items():
             duplicated_hashable_captured_query = DuplicateHashableCapturedQueryDict(
                 captured_query
             )
             if (
                 duplicated_hashable_captured_query
-                in classified_query["duplicates_counter"]
-                and classified_query["duplicates_counter"][
+                in self._classified_query["duplicates_counter"]
+                and self._classified_query["duplicates_counter"][
                     duplicated_hashable_captured_query
                 ]
                 > get_config()["PRINT_THRESHOLDS"]["DUPLICATE_MIN_COUNT"]

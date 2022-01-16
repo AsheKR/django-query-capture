@@ -5,8 +5,10 @@ from django_query_capture.settings import get_config
 
 
 class BasePresenter:
-    @staticmethod
-    def print(classified_query: ClassifiedQuery) -> None:
+    def __init__(self, classified_query: ClassifiedQuery):
+        self._classified_query = classified_query
+
+    def print(self) -> None:
         raise NotImplementedError
 
     @staticmethod
