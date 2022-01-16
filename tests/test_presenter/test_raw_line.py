@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from news.models import Reporter
 from test_presenter.utils import ConsoleOutputTestCaseMixin
 
@@ -9,6 +9,22 @@ class RawLinePresenterTests(ConsoleOutputTestCaseMixin, TestCase):
     def test_print_raw_line(self):
         with query_capture():
             [Reporter.objects.create(full_name=f"target-i") for i in range(1)]
+
+    @override_settings(
+        QUERY_CAPTURE={
+            "PRINT_THRESHOLDS": {
+                "SLOW_MIN_SECOND": 0,
+                "DUPLICATE_MIN_COUNT": 10,
+                "SIMILAR_MIN_COUNT": 10,
+                "COLOR": "yellow",
+            }
+        }
+    )
+    def test_print_slow_query(self):
+        with query_capture():
+            [Reporter.objects.create(full_name=f"target-i") for i in range(1)]
+        output = self.capture_output.getvalue()
+        self.assertTrue("Slow 0.00 seconds" in output, output)
 
     def test_print_raw_line_duplicate(self):
         with query_capture():
