@@ -10,8 +10,10 @@ from django_query_capture import query_capture
 )
 class PrettyPresenterTests(ConsoleOutputTestCaseMixin, TestCase):
     def test_print_pretty(self):
-        with query_capture():
+        with query_capture() as q:
             [Reporter.objects.create(full_name=f"target-{i}") for i in range(1)]
+            f = 2
+        a = 1
 
     def test_print_pretty_duplicate(self):
         with query_capture():
