@@ -62,6 +62,23 @@ class BasePresenter:
         return self._classified_query["total_duration"]
 
     @cached_property
+    def slow_captured_queries(self) -> typing.List[CapturedQuery]:
+        results = []
+        for captured_query in self._classified_query["captured_queries"]:
+            if not self.include_ignore_patterns and not self.is_allow_pattern(
+                captured_query["sql"]
+            ):
+                continue
+
+            if (
+                captured_query["duration"]
+                > get_config()["PRINT_THRESHOLDS"]["SLOW_MIN_SECOND"]
+            ):
+                results.append(captured_query)
+
+        return results
+
+    @cached_property
     def duplicates_counter(self) -> typing.Counter[CapturedQuery]:
         counter = Counter()
         for captured_query in self._classified_query["captured_queries"]:
