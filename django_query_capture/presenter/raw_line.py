@@ -16,8 +16,6 @@ class RawLinePresenter(BasePresenter):
             f'read: {self._classified_query["read"]}\n'
             f'writes: {self._classified_query["writes"]}\n'
             f'total_duration: {self._classified_query["total_duration"]:.2f}\n'
-            f'most_common_duplicates: {self._classified_query["most_common_duplicates"]}\n'
-            f'most_common_similar: {self._classified_query["most_common_similar"]}\n'
         )
 
         for captured_query in self._classified_query["captured_queries"]:

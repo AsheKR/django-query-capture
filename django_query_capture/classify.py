@@ -10,8 +10,6 @@ class ClassifiedQuery(typing.TypedDict):
     writes: int
     total: int
     total_duration: float
-    most_common_duplicates: int
-    most_common_similar: int
     duplicates_counter: typing.Counter[CapturedQuery]
     similar_counter: typing.Counter[CapturedQuery]
     captured_queries: typing.List[CapturedQuery]
@@ -43,21 +41,10 @@ class CapturedQueryClassifier:
             "writes": self.get_writes_count(),
             "total": self.get_total_count(),
             "total_duration": self.get_total_duration(),
-            "most_common_duplicates": 0,
-            "most_common_similar": 0,
             "duplicates_counter": self.get_duplicates_counter(),
             "similar_counter": self.get_similar_counter(),
             "captured_queries": self.captured_queries,
         }
-        most_common_duplicates = stats["duplicates_counter"].most_common(1)
-        if most_common_duplicates:
-            captured_query, count = most_common_duplicates[0]
-            stats["most_common_duplicates"] = count
-
-        most_common_similar = stats["similar_counter"].most_common(1)
-        if most_common_similar:
-            captured_query, count = most_common_similar[0]
-            stats["most_common_similar"] = count
 
         return stats
 
