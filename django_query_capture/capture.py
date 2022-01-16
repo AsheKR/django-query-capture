@@ -34,9 +34,6 @@ class native_query_capture(ContextDecorator):
     def __exit__(self, exc_type, exc_value, traceback):
         self._exit_stack.close()
 
-    def __getattr__(self, item):
-        return self.captured_queries[item]
-
     def __len__(self):
         return len(self.captured_queries)
 
