@@ -6,7 +6,7 @@ from django_query_capture import query_capture
 
 
 @override_settings(
-    QUERY_CAPTURE={"PRESENTER": "django_query_capture.presenter.pretty.PrettyPresenter"}
+    QUERY_CAPTURE={"PRESENTER": "django_query_capture.presenter.PrettyPresenter"}
 )
 class PrettyPresenterTests(ConsoleOutputTestCaseMixin, TestCase):
     def test_print_pretty(self):

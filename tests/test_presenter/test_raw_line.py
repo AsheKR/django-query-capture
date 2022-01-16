@@ -5,6 +5,9 @@ from test_presenter.utils import ConsoleOutputTestCaseMixin
 from django_query_capture import query_capture
 
 
+@override_settings(
+    QUERY_CAPTURE={"PRESENTER": "django_query_capture.presenter.RawLinePresenter"}
+)
 class RawLinePresenterTests(ConsoleOutputTestCaseMixin, TestCase):
     def test_print_raw_line(self):
         with query_capture():
