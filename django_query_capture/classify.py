@@ -42,7 +42,12 @@ class ClassifiedQuery(typing.TypedDict):
 
 
 class CapturedQueryClassifier:
-    def __init__(self, captured_queries: typing.List[CapturedQuery]):
+    def __init__(
+        self,
+        captured_queries: typing.List[CapturedQuery],
+        ignore_patterns: typing.Optional[typing.List[str]] = None,
+    ):
+        self.ignore_patterns = ignore_patterns or get_config()["IGNORE_SQL_PATTERNS"]
         self.captured_queries = captured_queries
         self.filtered_captured_queries = [
             captured_query
@@ -67,12 +72,11 @@ class CapturedQueryClassifier:
             "captured_queries": self.captured_queries,
         }
 
-    @staticmethod
-    def is_allow_pattern(query: str) -> bool:
+    def is_allow_pattern(self, query: str) -> bool:
         return not list(
             filter(
                 lambda pattern: re.compile(pattern).search(query),
-                get_config()["IGNORE_SQL_PATTERNS"],
+                self.ignore_patterns,
             )
         )
 
