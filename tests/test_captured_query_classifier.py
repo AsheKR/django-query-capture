@@ -52,25 +52,3 @@ class CapturedQueryClassifierTests(TestCase):
         ]
         result = CapturedQueryClassifier(captured_queries)()
         self.assertEqual(result["total_duration"], 102.0)
-
-    def test_most_common_duplicates(self):
-        captured_queries = [
-            create_dict_mock(sql="SELECT *"),
-            create_dict_mock(sql="INSERT *"),
-            create_dict_mock(sql="SELECT *"),
-            create_dict_mock(sql="SELECT *"),
-        ]
-        result = CapturedQueryClassifier(captured_queries)()
-        self.assertEqual(result["most_common_duplicates"], 3)
-
-    def test_most_common_similar(self):
-        captured_queries = [
-            create_dict_mock(raw_sql="INSERT (%s %s %s %s)", raw_params=(1, 2, 3, 4)),
-            create_dict_mock(raw_sql="INSERT *"),
-            create_dict_mock(raw_sql="INSERT (%s %s %s %s)", raw_params=(5, 6, 7, 8)),
-            create_dict_mock(
-                raw_sql="INSERT (%s %s %s %s)", raw_params=(9, 0, "-", "=")
-            ),
-        ]
-        result = CapturedQueryClassifier(captured_queries)()
-        self.assertEqual(result["most_common_similar"], 3)
