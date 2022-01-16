@@ -1,7 +1,9 @@
 site_name: django-query-capture
 
 nav:
-    - Home: index.md
+    - Home:
+      - django-query-capture: home/overview.md
+      - Settings: home/settings.md
     - License: license.md
 
 theme:
@@ -28,7 +30,14 @@ theme:
       name: Switch to light mode
 
 markdown_extensions:
+- admonition:
+- pymdownx.highlight:
+    anchor_linenums: true
+- pymdownx.inlinehilite:
 - pymdownx.snippets:
     check_paths: true
+- pymdownx.details:
+- pymdownx.superfences:
 - toc:
     permalink: "¤"
+- tables:
