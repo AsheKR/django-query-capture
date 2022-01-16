@@ -61,6 +61,16 @@ class BasePresenter:
     def total_duration(self) -> float:
         return self._classified_query["total_duration"]
 
+    @property
+    def has_over_threshold(self) -> bool:
+        if (
+            self.similar_counter_over_threshold
+            or self.duplicates_counter_over_threshold
+            or self.slow_captured_queries
+        ):
+            return True
+        return False
+
     @cached_property
     def slow_captured_queries(self) -> typing.List[CapturedQuery]:
         results = []
