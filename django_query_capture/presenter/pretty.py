@@ -39,7 +39,7 @@ class PrettyPresenter(BasePresenter):
             if cls.is_allow_pattern(captured_query["sql"]):
                 if (
                     captured_query["duration"]
-                    > get_config()["PRINT_THRESHOLDS"]["SLOW_MIN_TIME"]
+                    > get_config()["PRINT_THRESHOLDS"]["SLOW_MIN_SECOND"]
                 ):
                     return True
 

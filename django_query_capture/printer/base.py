@@ -60,7 +60,7 @@ class SlowMinTimePrinter(BaseLinePrinter):
     def is_allow_print(captured_query: CapturedQuery, count: int = 0) -> bool:
         return (
             captured_query["duration"]
-            > get_config()["PRINT_THRESHOLDS"]["SLOW_MIN_TIME"]
+            > get_config()["PRINT_THRESHOLDS"]["SLOW_MIN_SECOND"]
         )
 
     @classmethod

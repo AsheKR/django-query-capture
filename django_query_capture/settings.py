@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 CONFIG_DEFAULTS = {
     "PRINT_THRESHOLDS": {
-        "SLOW_MIN_TIME": 1,
+        "SLOW_MIN_SECOND": 1,
         "DUPLICATE_MIN_COUNT": 10,
         "SIMILAR_MIN_COUNT": 10,
         "COLOR": "yellow",
