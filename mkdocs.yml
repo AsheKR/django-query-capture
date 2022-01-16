@@ -1,10 +1,15 @@
 site_name: django-query-capture
+site_url: https://ashekr.github.io/django-query-capture/
+repo_url: https://github.com/AsheKR/django-query-capture
 
 nav:
     - Home:
       - django-query-capture: home/overview.md
       - Settings: home/settings.md
-    - License: license.md
+    - Development:
+      - Contributing: contributing.md
+      - Code of Conduct: code_of_conduct.md
+      - License: license.md
 
 theme:
   name: material
