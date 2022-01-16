@@ -133,7 +133,7 @@ SQL_COLOR_FORMAT: [사용 가능한 목록](https://pygments.org/styles/)
 This project is licensed under the terms of the `MIT` license. See [LICENSE](https://github.com/ashekr/django-query-capture/blob/main/LICENSE) for more details.
 
 
-## Very first steps
+## Contribute first steps
 
 ### Initialize your code
 
