@@ -16,17 +16,65 @@
 
 ![img.png](assets/images/main.png)
 
-Django Query Capture 는 한 눈에 쿼리 상황을 확인하고, 느린 쿼리를 알아채고, N+1 이 일어나는 곳을 알아차릴 수 있습니다.
+Django Query Capture can check the query situation at a glance, notice slow queries, and notice where N+1 occurs.
 
-Query Capture 를 사용해야하는 사람들
+Some reasons you might want to use django-query-capture:
 
-- Django 의 어느 부분에서나 간단하게 쿼리를 확인하고 싶을 때 사용합니다.
-- Django Middleware, with Context 및 Decorator 를 모두 지원합니다.
-- with Context 를 사용했을 때는 실시간 쿼리 데이터를 받아올 수 있습니다.
-- 단순히 테이블 형태를 바꾸거나, 색을 바꾸고, 원하는 출력을 선택하여 설정해 사용하는 간편하게 커스텀하여 수 있습니다.
-- 출력을 처음부터 마음대로 꾸밀 수 있는 자유로운 커스터마이징을 지원합니다. ( 커스텀 할 수 있는 문서를 지원합니다. )
-- Type Hint 지원
+- It can be used to simply check queries in a specific block.
+- It supports all of Django Middleware, with Context, and Decorator.
+- When you use Context with Context, you can get real-time query data.
+- It is easy to customize by simply changing the table shape, changing the color, and selecting and setting the desired output.
+- It supports free customization that allows you to decorate the output freely from the beginning.
+- It supports Type hint everywhere.
 
+### Simple Usage
+
+- Just add it to Middleware without any other settings, and it will be output whenever a query occurs.
+
+```python
+MIDDLEWARE = [
+  ...,
+  "django_query_capture.middleware.QueryCaptureMiddleware",
+]
+```
+  
+- Use in function-based views. or just function
+```python
+from django_query_capture import query_capture
+
+@query_capture()
+def my_view(request):
+  pass
+```
+
+- Use in class-based views.
+```python
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+from django_query_capture import query_capture
+
+@method_decorator(query_capture, name='dispatch')
+class AboutView(TemplateView):
+  pass
+```
+
+- Use it as a context.
+
+When used as Context, you can check the query situation in real time.
+
+```python
+from django_query_capture import query_capture
+
+from tests.news.models import Reporter
+
+@query_capture()
+def run_something():
+    with query_capture() as capture:
+        Reporter.objects.create(full_name=f"target-1")
+        print(len(capture.captured_queries))  # console: 1
+        Reporter.objects.create(full_name=f"target-2")
+        print(len(capture.captured_queries))  # console: 2
+```
 
 ## Requirements
 
@@ -45,86 +93,27 @@ or install with `Poetry`
 poetry add django-query-capture
 ```
 
-### Simple Usage
-
-- Middleware 를 설정하면 모든 Request 의 쿼리를 확인할 수 있습니다.
-
-```python
-MIDDLEWARE = [
-  ...,
-  "django_query_capture.middleware.QueryCaptureMiddleware",
-]
-```
-
-- Decorator 로 사용하기
-
-```python
-from django_query_capture import query_capture
-
-@query_capture()
-def run_something():
-    pass
-```
-  
-  - 함수형 view 에서 사용하기
-```python
-from django_query_capture import query_capture
-
-@query_capture()
-def my_view(request):
-  pass
-```
-
-  - 클래스 기반 View 에서 사용하기
-```python
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
-from django_query_capture import query_capture
-
-@method_decorator(query_capture, name='dispatch')
-class AboutView(TemplateView):
-  pass
-```
-
-- Context 로 사용하기
-
-context 로 사용했을 경우 실시간으로 캡쳐된 쿼리를 확인할 수 있습니다.
-
-```python
-from django_query_capture import query_capture
-
-from tests.news.models import Reporter
-
-@query_capture()
-def run_something():
-    with query_capture() as capture:
-        Reporter.objects.create(full_name=f"target-1")
-        print(len(capture.captured_queries))  # console: 1
-        Reporter.objects.create(full_name=f"target-2")
-        print(len(capture.captured_queries))  # console: 2
-```
-
-### Settings
+## Settings
 
 ```python
 QUERY_CAPTURE = {
-    "PRINT_THRESHOLDS": {  # 아래 값들을 초과하면 콘솔에 출력됩니다.
-        "SLOW_MIN_SECOND": 1,  # 시간
-        "DUPLICATE_MIN_COUNT": 10,  # 중복 개수
-        "SIMILAR_MIN_COUNT": 10,  # 비슷한 중복 개수
-        "COLOR": "yellow",  # 임계치를 넘었을 시 출력에 사용 할 색
+    "PRINT_THRESHOLDS": {  # If you exceed the values below, it will be output to the console.
+        "SLOW_MIN_SECOND": 1,  # time thresholds
+        "DUPLICATE_MIN_COUNT": 10,  # duplicate query thresholds
+        "SIMILAR_MIN_COUNT": 10,  # similar query thresholds
+        "COLOR": "yellow",  # The color you want to show when you go over the thresholds.
     },
-    "PRESENTER": "django_query_capture.presenter.PrettyPresenter",  # 콘솔에 출력하는 Presenter 클래스
-    "IGNORE_SQL_PATTERNS": [],  # 캡쳐하지 않을 regex 패턴 목록
-    "PRETTY": {"TABLE_FORMAT": "pretty", "SQL_COLOR_FORMAT": "friendly"},  # PrettyPresenter 를 사용했을 때 커스텀할 수 있는 세팅 값
+    "PRESENTER": "django_query_capture.presenter.PrettyPresenter",  # Output class, if you change this class, you can freely customize it.
+    "IGNORE_SQL_PATTERNS": [],  # SQL Regex pattern list not to capture
+    "PRETTY": {"TABLE_FORMAT": "pretty", "SQL_COLOR_FORMAT": "friendly"},  # Setting values that can be customized when using PrettyPresenter.
 }
 ```
 
-COLOR: [사용가능한 목록](https://github.com/django/django/blob/main/django/utils/termcolors.py)
+COLOR: [Available List](https://github.com/django/django/blob/main/django/utils/termcolors.py)
 
-TABLE_FORMAT: [사용 가능한 목록](https://github.com/astanin/python-tabulate#table-format)
+TABLE_FORMAT: [Available List](https://github.com/astanin/python-tabulate#table-format)
 
-SQL_COLOR_FORMAT: [사용 가능한 목록](https://pygments.org/styles/)
+SQL_COLOR_FORMAT: [Available List](https://pygments.org/styles/)
 
 ## 🛡 License
 
