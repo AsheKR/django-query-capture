@@ -17,6 +17,8 @@
 
 ## Overview
 
+![img.png](assets/images/main.png)
+
 Django Query Capture 는 한 눈에 쿼리 상황을 확인하고, 느린 쿼리를 알아채고, N+1 이 일어나는 곳을 알아차릴 수 있습니다.
 
 Query Capture 를 사용해야하는 사람들
@@ -26,6 +28,7 @@ Query Capture 를 사용해야하는 사람들
 - with Context 를 사용했을 때는 실시간 쿼리 데이터를 받아올 수 있습니다.
 - 단순히 테이블 형태를 바꾸거나, 색을 바꾸고, 원하는 출력을 선택하여 설정해 사용하는 간편하게 커스텀하여 수 있습니다.
 - 출력을 처음부터 마음대로 꾸밀 수 있는 자유로운 커스터마이징을 지원합니다. ( 커스텀 할 수 있는 문서를 지원합니다. )
+- Type Hint 지원
 
 
 ## Requirements
@@ -119,6 +122,8 @@ QUERY_CAPTURE = {
     "PRETTY": {"TABLE_FORMAT": "pretty", "SQL_COLOR_FORMAT": "friendly"},  # PrettyPresenter 를 사용했을 때 커스텀할 수 있는 세팅 값
 }
 ```
+
+COLOR: [사용가능한 목록](https://github.com/django/django/blob/main/django/utils/termcolors.py)
 
 TABLE_FORMAT: [사용 가능한 목록](https://github.com/astanin/python-tabulate#table-format)
 
