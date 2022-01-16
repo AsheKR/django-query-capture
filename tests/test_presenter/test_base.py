@@ -16,3 +16,6 @@ class PresenterTestCases(ConsoleOutputTestCaseMixin, TestCase):
     def test_ignore_pattern(self):
         with query_capture():
             [Reporter.objects.create(full_name=f"target-{i}") for i in range(11)]
+
+        output = self.capture_output.getvalue()
+        self.assertFalse("Similar" in output)
