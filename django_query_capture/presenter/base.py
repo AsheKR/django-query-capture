@@ -74,6 +74,15 @@ class BasePresenter:
         return counter
 
     @cached_property
+    def duplicates_counter_over_threshold(self) -> typing.Counter[CapturedQuery]:
+        counter = Counter()
+        for captured_query, count in self.duplicates_counter.items():
+            if count > get_config()["PRINT_THRESHOLDS"]["DUPLICATE_MIN_COUNT"]:
+                counter[captured_query] = count
+
+        return counter
+
+    @cached_property
     def similar_counter(self) -> typing.Counter[CapturedQuery]:
         counter = Counter()
         for captured_query in self._classified_query["captured_queries"]:
@@ -92,13 +101,30 @@ class BasePresenter:
 
         return counter
 
-    @property
-    def most_common_duplicate(self) -> typing.Tuple[CapturedQuery, int]:
-        return self.duplicates_counter.most_common(1)[0]
+    @cached_property
+    def similar_counter_over_threshold(self) -> typing.Counter[CapturedQuery]:
+        counter = Counter()
+        for captured_query, count in self.similar_counter.items():
+            if count > get_config()["PRINT_THRESHOLDS"]["SIMILAR_MIN_COUNT"]:
+                counter[captured_query] = count
+
+        return counter
 
     @property
-    def most_common_similar(self) -> typing.Tuple[CapturedQuery, int]:
-        return self.similar_counter.most_common(1)[0]
+    def most_common_duplicate(
+        self,
+    ) -> typing.Optional[typing.Tuple[CapturedQuery, int]]:
+        try:
+            return self.duplicates_counter.most_common(1)[0]
+        except IndexError:
+            return None
+
+    @property
+    def most_common_similar(self) -> typing.Optional[typing.Tuple[CapturedQuery, int]]:
+        try:
+            return self.similar_counter.most_common(1)[0]
+        except IndexError:
+            return None
 
     @property
     def captured_queries(self):
