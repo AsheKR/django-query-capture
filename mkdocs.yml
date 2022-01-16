@@ -6,6 +6,10 @@ nav:
     - Home:
       - django-query-capture: home/overview.md
       - Settings: home/settings.md
+    - API Guide:
+        - Presenter: api_guide/presenter.md
+        - Classified Query: api_guide/classified_query.md
+        - Captured Query: api_guide/captured_query.md
     - Development:
       - Contributing: contributing.md
       - Code of Conduct: code_of_conduct.md

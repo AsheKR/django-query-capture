@@ -1,5 +1,3 @@
-# Settings
-
 In the setting, you can set the threshold and the form of the output.
 If you don't set anything up, the default value below will go in.
 
