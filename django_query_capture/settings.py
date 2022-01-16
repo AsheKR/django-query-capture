@@ -11,11 +11,11 @@ CONFIG_DEFAULTS = {
         "SLOW_MIN_SECOND": 1,
         "DUPLICATE_MIN_COUNT": 10,
         "SIMILAR_MIN_COUNT": 10,
-        "COLOR": "yellow",
+        "COLOR": "magenta",
     },
     "PRESENTER": "django_query_capture.presenter.PrettyPresenter",
     "IGNORE_SQL_PATTERNS": [],
-    "PRETTY": {"TABLE_FORMAT": "pretty", "SQL_COLOR_FORMAT": "friendly"},
+    "PRETTY": {"TABLE_FORMAT": "pretty", "SQL_COLOR_FORMAT": "paraiso-light"},
 }
 
 

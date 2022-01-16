@@ -1,5 +1,6 @@
 import typing
 
+import inspect
 import time
 from contextlib import ContextDecorator, ExitStack
 
@@ -19,6 +20,9 @@ class CapturedQuery(typing.TypedDict):
     raw_params: str
     many: bool
     duration: float
+    file_name: str
+    function_name: str
+    line_no: str
     context: CapturedQueryContext
 
 
@@ -38,6 +42,13 @@ class native_query_capture(ContextDecorator):
         return len(self.captured_queries)
 
     def _save_queries(self, execute, sql, params, many, context):
+        call_stack = [
+            stack for stack in inspect.stack() if "site-packages" not in stack.filename
+        ]
+        called_by = call_stack[1]
+        file_name = called_by.filename.split("/")[-1]
+        function_name = called_by.function
+        line_no = called_by.lineno
         start_timestamp = time.monotonic()
         result = execute(sql, params, many, context)
         duration = time.monotonic() - start_timestamp
@@ -48,6 +59,9 @@ class native_query_capture(ContextDecorator):
                 "raw_params": params,
                 "many": many,
                 "duration": duration,
+                "file_name": file_name,
+                "function_name": function_name,
+                "line_no": line_no,
                 "context": context,
             }
         )
