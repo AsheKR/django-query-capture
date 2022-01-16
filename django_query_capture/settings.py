@@ -13,7 +13,7 @@ CONFIG_DEFAULTS = {
         "SIMILAR_MIN_COUNT": 10,
         "COLOR": "yellow",
     },
-    "PRESENTER": "django_query_capture.presenter.RawLinePresenter",
+    "PRESENTER": "django_query_capture.presenter.PrettyPresenter",
     "IGNORE_SQL_PATTERNS": [],
     "PRETTY": {"TABLE_FORMAT": "pretty", "SQL_COLOR_FORMAT": "friendly"},
 }
