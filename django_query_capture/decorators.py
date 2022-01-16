@@ -11,7 +11,12 @@ from .settings import get_config
 
 
 class query_capture(ContextDecorator):
-    def __init__(self, ignore_patterns: typing.Optional[typing.List[str]] = None):
+    def __init__(
+        self,
+        ignore_output: bool = False,
+        ignore_patterns: typing.Optional[typing.List[str]] = None,
+    ):
+        self.ignore_output = ignore_output
         self.ignore_patterns = ignore_patterns or get_config()["IGNORE_SQL_PATTERNS"]
         self.presenter_cls: typing.Type[BasePresenter] = import_string(
             get_config()["PRESENTER"]
@@ -24,10 +29,10 @@ class query_capture(ContextDecorator):
         return self.native_query_capture
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.presenter_cls(
-            CapturedQueryClassifier(
-                self.native_query_capture.captured_queries,
-                ignore_patterns=self.ignore_patterns,
-            )()
-        ).print()
+        self.classifier = CapturedQueryClassifier(
+            self.native_query_capture.captured_queries,
+            ignore_patterns=self.ignore_patterns,
+        )()
+        if not self.ignore_output:
+            self.presenter_cls(self.classifier).print()
         self._exit_stack.close()

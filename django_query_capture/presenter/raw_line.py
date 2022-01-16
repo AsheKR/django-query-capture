@@ -1,13 +1,10 @@
 import sqlparse
 
-from ..capture import CapturedQuery
+from ..utils import get_stack_prefix
 from .base import BasePresenter
 
 
 class RawLinePresenter(BasePresenter):
-    def get_stack_prefix(self, captured_query: CapturedQuery):
-        return f'[{captured_query["function_name"]}, {captured_query["file_name"]}:{captured_query["line_no"]}]'
-
     def print(self) -> None:
         print(
             f"read: {self.classified_query['read']}\n",
@@ -20,7 +17,7 @@ class RawLinePresenter(BasePresenter):
 
         for captured_query in self.classified_query["slow_captured_queries"]:
             print(
-                f'{self.get_stack_prefix(captured_query)} Slow {captured_query["duration"]:.2f} seconds'
+                f'{get_stack_prefix(captured_query)} Slow {captured_query["duration"]:.2f} seconds'
             )
             print(
                 sqlparse.format(
@@ -31,7 +28,7 @@ class RawLinePresenter(BasePresenter):
         for captured_query, count in self.classified_query[
             "duplicates_counter_over_threshold"
         ].items():
-            print(f"{self.get_stack_prefix(captured_query)} Repeated {count} times")
+            print(f"{get_stack_prefix(captured_query)} Repeated {count} times")
             print(
                 sqlparse.format(
                     captured_query["sql"], reindent=True, keyword_case="upper"
@@ -41,7 +38,7 @@ class RawLinePresenter(BasePresenter):
         for captured_query, count in self.classified_query[
             "similar_counter_over_threshold"
         ].items():
-            print(f"{self.get_stack_prefix(captured_query)} Similar {count} times")
+            print(f"{get_stack_prefix(captured_query)} Similar {count} times")
             print(
                 sqlparse.format(
                     captured_query["sql"], reindent=True, keyword_case="upper"

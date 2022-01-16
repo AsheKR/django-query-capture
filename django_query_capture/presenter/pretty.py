@@ -5,16 +5,12 @@ from pygments.lexers.sql import SqlLexer
 from tabulate import tabulate
 
 from django_query_capture.settings import get_config
-from django_query_capture.utils import colorize
+from django_query_capture.utils import colorize, get_stack_prefix
 
-from ..capture import CapturedQuery
 from .base import BasePresenter
 
 
 class PrettyPresenter(BasePresenter):
-    def get_stack_prefix(self, captured_query: CapturedQuery):
-        return f'[{captured_query["function_name"]}, {captured_query["file_name"]}:{captured_query["line_no"]}]'
-
     @staticmethod
     def print_sql(sql: str) -> None:
         print(
@@ -63,18 +59,18 @@ class PrettyPresenter(BasePresenter):
 
         for captured_query in self.classified_query["slow_captured_queries"]:
             print(
-                f'{self.get_stack_prefix(captured_query)} Slow {captured_query["duration"]:.2f} seconds'
+                f'{get_stack_prefix(captured_query)} Slow {captured_query["duration"]:.2f} seconds'
             )
             self.print_sql(captured_query["sql"])
 
         for captured_query, count in self.classified_query[
             "duplicates_counter_over_threshold"
         ].items():
-            print(f"{self.get_stack_prefix(captured_query)} Repeated {count} times")
+            print(f"{get_stack_prefix(captured_query)} Repeated {count} times")
             self.print_sql(captured_query["sql"])
 
         for captured_query, count in self.classified_query[
             "similar_counter_over_threshold"
         ].items():
-            print(f"{self.get_stack_prefix(captured_query)} Similar {count} times")
+            print(f"{get_stack_prefix(captured_query)} Similar {count} times")
             self.print_sql(captured_query["raw_sql"])
