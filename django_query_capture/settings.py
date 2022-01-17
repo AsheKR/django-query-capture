@@ -1,3 +1,7 @@
+"""
+This is the [default setting](../home/settings.md) of django_query_capture.
+You can adjust the threshold or change the shape of the output by referring to [settings](../home/settings.md).
+"""
 import typing
 
 from functools import lru_cache
@@ -21,6 +25,11 @@ CONFIG_DEFAULTS = {
 
 @lru_cache
 def get_config() -> typing.Dict[str, typing.Any]:
+    """
+    Utilities that help you use the default settings if you don't use the user
+    Returns:
+        Among the values of [settings](../home/settings.md), the existing value is returned.
+    """
     USER_CONFIG = getattr(settings, "QUERY_CAPTURE", {})
     CONFIG = CONFIG_DEFAULTS.copy()
     CONFIG.update(USER_CONFIG)

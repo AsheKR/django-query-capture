@@ -20,9 +20,9 @@ QUERY_CAPTURE = {
 | name                  | description                                                                                                            | available value                                                                                       |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
 | `PRINT_THRESHOLDS`    | If you exceed the values below, it will be output to the console.<br>The table below contains additional explanations. | `dict`                                                                                                  |
-| `PRESENTER`           | Output class, if you change this class, you can freely customize it.                                                   | Class that inherited `BasePresenter`.<br>Please refer to `django_query_capture.presenter`              |
+| `PRESENTER`           | Output class, if you change this class, you can freely customize it.                                                   | Class that inherited [BasePresenter][presenter.base.BasePresenter].<br>Please refer to [How to Customize Presenter](../../api_guide/presenter/#how-to-customize-presenter)              |
 | `IGNORE_SQL_PATTERNS` | SQL Regex pattern list not to capture                                                                                  | `list[str]`                                                                                             |
-| `PRETTY`              | Setting values that can be customized when using PrettyPresenter.<br>The table below contains additional explanations. | `dict`                                                                                                  |
+| `PRETTY`              | Setting values that can be customized when using [PrettyPresenter][presenter.pretty.PrettyPresenter].<br>The table below contains additional explanations. | `dict`                                                                                                  |
 
 ### PRINT_THRESHOLDS
 
@@ -36,7 +36,7 @@ QUERY_CAPTURE = {
 ???+ hint "Similar vs Duplicate"
     First, let's define it simply and understand it with one example.<br>
     "Similar" has almost the same sql but only different parameters.<br>
-    "Duplicate" has the same sql.<br>
+    "Duplicate" has exactly the same sql.<br>
 
     This example is a "Similar" example.<br>
     The preceding SQL is the same, but only the parameters are different.

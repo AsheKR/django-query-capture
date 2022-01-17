@@ -1,10 +1,14 @@
 import sqlparse
 
-from ..utils import get_stack_prefix
-from .base import BasePresenter
+from django_query_capture.presenter.base import BasePresenter
+from django_query_capture.utils import get_stack_prefix
 
 
 class RawLinePresenter(BasePresenter):
+    """
+    Outputs all elements of [ClassifiedQuery][classify.ClassifiedQuery] without formatting.
+    """
+
     def print(self) -> None:
         print(
             f"read: {self.classified_query['read']}\n",

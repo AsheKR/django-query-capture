@@ -4,13 +4,19 @@ from pygments.formatters.terminal256 import TerminalTrueColorFormatter
 from pygments.lexers.sql import SqlLexer
 from tabulate import tabulate
 
+from django_query_capture.presenter.base import BasePresenter
 from django_query_capture.settings import get_config
 from django_query_capture.utils import colorize, get_stack_prefix
 
-from .base import BasePresenter
-
 
 class PrettyPresenter(BasePresenter):
+    """
+    Outputs all elements of [ClassifiedQuery][classify.ClassifiedQuery] with formatting.<br>
+    termscolor: [https://github.com/django/django/blob/main/django/utils/termcolors.py](https://github.com/django/django/blob/main/django/utils/termcolors.py)<br>
+    tabulate: [https://github.com/astanin/python-tabulate#table-format](https://github.com/astanin/python-tabulate#table-format) <br>
+    pygments: [https://pygments.org/styles/](https://pygments.org/styles/)
+    """
+
     @staticmethod
     def print_sql(sql: str) -> None:
         print(
