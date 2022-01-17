@@ -5,7 +5,6 @@ from contextlib import ContextDecorator, ExitStack
 from django.test import override_settings
 
 from django_query_capture import query_capture
-from django_query_capture.classify import CapturedQueryClassifier
 from django_query_capture.settings import get_config
 from django_query_capture.utils import get_stack_prefix, truncate_string
 
@@ -14,8 +13,8 @@ class AssertInefficientQuery(ContextDecorator):
     def __init__(
         self,
         test_case,
-        num: int,
-        seconds: int,
+        num: int = 0,
+        seconds: int = 0,
         ignore_patterns: typing.Optional[typing.List[str]] = None,
     ):
         self.test_case = test_case
@@ -25,7 +24,7 @@ class AssertInefficientQuery(ContextDecorator):
 
     def __enter__(self):
         self._exit_stack = ExitStack().__enter__()
-        self.query_capture = query_capture()
+        self.query_capture = query_capture(ignore_output=True)
         config = get_config().copy()
         config.update(
             {

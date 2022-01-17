@@ -21,11 +21,12 @@ Django Query Capture can check the query situation at a glance, notice slow quer
 Some reasons you might want to use django-query-capture:
 
 - It can be used to simply check queries in a specific block.
-- It supports Django Middleware, with Context, and Decorator.
-- When you use Context syntax, you can get real-time query data.
+- It supports Django Middleware, Context Manager, and Decorator.
+- When you use Context Manager, you can get real-time query data.
+- You can see where the query occurs.
 - Inefficient queries can be found in the test code.
 - It is easy to customize by simply changing the table shape, changing the color, and selecting and setting the desired output.
-- It supports free customization that allows you to decorate the output freely from the beginning.
+- It supports customization that allows you to decorate the output freely from the beginning.
 - It supports Type hint everywhere.
 
 # Simple Usage
@@ -93,7 +94,7 @@ from django_query_capture.test_utils import AssertInefficientQuery
 
 class AssertInefficientQueryTests(ConsoleOutputTestCaseMixin, TestCase):
     def test_assert_inefficient_query(self):
-          with AssertInefficientQuery(self, num=1, seconds=0):
+          with AssertInefficientQuery(self, num=1):
             self.client.get('/api/reporter')  # /api/reporter duplicate query: 20, so raise error
 ```
 

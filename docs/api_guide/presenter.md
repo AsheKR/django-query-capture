@@ -14,8 +14,16 @@ If you look at the example below how you implemented the class, you may have an 
 
 ## SimpleQueryPresenter
 
+![simple_query_presenter.png](assets/images/api_guide/simple_query_presenter.png)
+
 ## RawLinePresenter
+
+![raw_line_presenter.png](assets/images/api_guide/raw_line_presenter.png)
 
 ## PrettyPresenter
 
+![pretty_presenter.png](assets/images/api_guide/pretty_presenter.png)
+
 ## OnlyLogSlowQueryPresenter
+
+![only_log_slow_query_presenter.png](assets/images/api_guide/only_log_slow_query_presenter.png)
