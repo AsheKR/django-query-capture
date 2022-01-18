@@ -1,9 +1,12 @@
-from ..capture import CapturedQuery
-from ..utils import colorize, get_stack_prefix
-from .base import BasePresenter
+from django_query_capture.presenter.base import BasePresenter
+from django_query_capture.utils import colorize, get_stack_prefix
 
 
 class OnlySlowQueryPresenter(BasePresenter):
+    """
+    Only queries exceeding the [SLOW_MIN_SECOND](../../home/settings.md) threshold are output.
+    """
+
     def print(self) -> None:
         for captured_query in self.classified_query["slow_captured_queries"]:
             print(

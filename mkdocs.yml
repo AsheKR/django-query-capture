@@ -4,15 +4,18 @@ repo_url: https://github.com/AsheKR/django-query-capture
 
 nav:
     - Home:
-      - django-query-capture: home/overview.md
+      - Overview: index.md
       - Settings: home/settings.md
+      - How to Customize Presenter: home/customize_presenter.md
     - API Guide:
+        - Capture Query: api_guide/capture_query.md
         - Presenter: api_guide/presenter.md
-        - Classified Query: api_guide/classified_query.md
-        - Captured Query: api_guide/captured_query.md
+        - Test Util: api_guide/test_util.md
+    - Code Reference: reference/
     - Development:
       - Contributing: contributing.md
       - Code of Conduct: code_of_conduct.md
+      - Coverage report: coverage.md
       - License: license.md
 
 theme:
@@ -50,3 +53,35 @@ markdown_extensions:
 - toc:
     permalink: "¤"
 - tables:
+
+plugins:
+- git-revision-date-localized:
+    exclude:
+      - reference/*
+      - coverage.md
+- autorefs:
+- gen-files:
+    scripts:
+      - docs/gen_ref_nav.py
+- literate-nav:
+    nav_file: SUMMARY.md
+- search:
+- coverage:
+- section-index:
+- mkdocstrings:
+    handlers:
+      python:
+        setup_commands:
+          - import os
+          - import sys
+          - import django
+          - sys.path.append("django_query_capture")
+          - os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+          - django.setup()
+        selection:
+          new_path_syntax: yes
+    watch:
+    - django_query_capture
+
+extra_css:
+- css/mkdocstrings.css

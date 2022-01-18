@@ -12,22 +12,25 @@
 ![Coverage Report](assets/images/coverage.svg)
 
 
-# Overview
+## Overview
 
-![img.png](assets/images/main.png)
+![img.png](/assets/images/main.png)
 
 Django Query Capture can check the query situation at a glance, notice slow queries, and notice where N+1 occurs.
 
 Some reasons you might want to use django-query-capture:
 
 - It can be used to simply check queries in a specific block.
-- It supports all of Django Middleware, with Context, and Decorator.
-- When you use Context with Context, you can get real-time query data.
+- It supports Django Middleware, Context Manager, and Decorator.
+- When you use Context Manager, you can get real-time query data.
+- You can see where the query occurs.
+- Inefficient queries can be found in the test code.
 - It is easy to customize by simply changing the table shape, changing the color, and selecting and setting the desired output.
-- It supports free customization that allows you to decorate the output freely from the beginning.
+- It supports customization that allows you to decorate the output freely from the beginning.
+- Fully Documented
 - It supports Type hint everywhere.
 
-# Simple Usage
+## Simple Usage
 
 - Just add it to Middleware without any other settings, and it will be output whenever a query occurs.
 
@@ -62,7 +65,7 @@ class AboutView(TemplateView):
 
 - Use it as a context.
 
-When used as Context, you can check the query situation in real time.
+When used as Context, you can check the query in real time.
 
 ```python
 from django_query_capture import query_capture
@@ -78,7 +81,24 @@ def run_something():
         print(len(capture.captured_queries))  # console: 2
 ```
 
-# Installation
+- Use in test
+
+Test code can capture inefficient queries through the `AssertInefficientQuery` Util.
+
+
+```python
+from django.test import TestCase
+
+from django_query_capture.test_utils import AssertInefficientQuery
+
+
+class AssertInefficientQueryTests(TestCase):
+    def test_assert_inefficient_query(self):
+          with AssertInefficientQuery(self, num=19):
+            self.client.get('/api/reporter')  # desire threshold count 19 but, /api/reporter duplicate query: 20, so raise error
+```
+
+## Installation
 
 ```bash
 pip install -U django-query-capture
@@ -90,12 +110,12 @@ or install with `Poetry`
 poetry add django-query-capture
 ```
 
-# 🛡 License
+## 🛡 License
 
 [![License](https://img.shields.io/github/license/ashekr/django-query-capture)](https://github.com/ashekr/django-query-capture/blob/main/LICENSE)
 
 This project is licensed under the terms of the `MIT` license. See [LICENSE](https://github.com/ashekr/django-query-capture/blob/main/LICENSE) for more details.
 
-# Credits [![🚀 Your next Python package needs a bleeding-edge project structure.](https://img.shields.io/badge/python--package--template-%F0%9F%9A%80-brightgreen)](https://github.com/TezRomacH/python-package-template)
+## Credits [![🚀 Your next Python package needs a bleeding-edge project structure.](https://img.shields.io/badge/python--package--template-%F0%9F%9A%80-brightgreen)](https://github.com/TezRomacH/python-package-template)
 
 This project was generated with [`python-package-template`](https://github.com/TezRomacH/python-package-template)
