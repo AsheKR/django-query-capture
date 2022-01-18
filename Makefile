@@ -42,6 +42,7 @@ formatting: codestyle
 test:
 	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=html --cov=django_query_capture tests/
 	poetry run coverage-badge -o assets/images/coverage.svg -f
+	poetry run coverage-badge -o docs/assets/images/coverage.svg -f
 
 .PHONY: check-codestyle
 check-codestyle:
