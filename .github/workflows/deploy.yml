@@ -34,6 +34,14 @@ jobs:
         poetry config virtualenvs.in-project true
         poetry install
 
+    - name: Run tests
+      run: |
+        make test
+
+    - name: Move htmlcov to site
+      run: |
+        mv htmlcov docs
+
     - name: Deploy documents
       run: |
         git config user.name ${{ secrets.GH_USER }}
