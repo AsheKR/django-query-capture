@@ -11,6 +11,9 @@ def colorize(value: str, is_warning: bool) -> str:
     Args:
         value: String to be output.
         is_warning: Whether it exceeds the threshold.
+
+    Returns:
+        colorized string output
     """
     if is_warning:
         return termcolors.make_style(fg=get_config()["PRINT_THRESHOLDS"]["COLOR"])(
@@ -34,5 +37,8 @@ def truncate_string(value: str, length: int) -> str:
     Args:
         value: String to be output.
         length: Number of strings to output.
+
+    Returns:
+        truncated string
     """
     return (value[:length] + "..") if len(value) > length else value
