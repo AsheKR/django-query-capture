@@ -38,10 +38,6 @@ jobs:
       run: |
         make test
 
-    - name: Move htmlcov to site
-      run: |
-        mv htmlcov docs
-
     - name: Deploy documents
       run: |
         git config user.name ${{ secrets.GH_USER }}
