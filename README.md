@@ -110,6 +110,10 @@ or install with `Poetry`
 poetry add django-query-capture
 ```
 
+## Full Documentation
+
+Extension documentation is found here: [https://ashekr.github.io/django-query-capture/](https://ashekr.github.io/django-query-capture/).
+
 ## 🛡 License
 
 [![License](https://img.shields.io/github/license/ashekr/django-query-capture)](https://github.com/ashekr/django-query-capture/blob/main/LICENSE)
