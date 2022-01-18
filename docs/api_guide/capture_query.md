@@ -38,7 +38,7 @@ If you use it as Context, you can use the content of [CapturedQuery](#capturedqu
 The highest level of module.<br>
 It is a module responsible for both query capture, classification, and output.
 
-It has both low-level [CapturedQuery](#capturedquery) data and [ClassifiedQuery](classify.ClassifiedQuery) data.<br>
+It has both low-level [CapturedQuery](#capturedquery) data and [ClassifiedQuery][classify.ClassifiedQuery] data.<br>
 Real-time data can only be obtained when used as Context Manager.
 
 
