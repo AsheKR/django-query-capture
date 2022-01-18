@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "django-query-capture"
-version = "0.1.0"
+version = "0.2.0"
 description = "Shows queries, detects N+1 in Django, Simple to use, Can Customize Console Result"
 readme = "README.md"
 authors = ["AsheKR <tech@ashe.kr>"]
