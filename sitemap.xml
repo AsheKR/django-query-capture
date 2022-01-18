@@ -51,11 +51,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://ashekr.github.io/django-query-capture/home/overview/</loc>
-         <lastmod>2022-01-18</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://ashekr.github.io/django-query-capture/home/settings/</loc>
          <lastmod>2022-01-18</lastmod>
          <changefreq>daily</changefreq>
