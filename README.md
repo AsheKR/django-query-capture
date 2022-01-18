@@ -14,7 +14,7 @@
 
 ## Overview
 
-![img.png](/assets/images/main.png)
+![img.png](assets/images/main.png)
 
 Django Query Capture can check the query situation at a glance, notice slow queries, and notice where N+1 occurs.
 
