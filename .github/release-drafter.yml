@@ -23,6 +23,4 @@ template: |
 
   $CHANGES
 
-  ## :busts_in_silhouette: List of contributors
-
   $CONTRIBUTORS
