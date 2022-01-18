@@ -16,7 +16,7 @@ def colorize(value: str, is_warning: bool) -> str:
         colorized string output
     """
     if is_warning:
-        return termcolors.make_style(fg=get_config()["PRINT_THRESHOLDS"]["COLOR"])(
+        return termcolors.make_style(fg=get_config()["PRINT_THRESHOLDS"]["COLOR"])(  # type: ignore
             value
         )
     return value

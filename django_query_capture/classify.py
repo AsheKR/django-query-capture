@@ -180,7 +180,7 @@ class CapturedQueryClassifier:
         """
         counter: typing.Counter[CapturedQuery] = Counter()
         for captured_query in self.filtered_captured_queries:
-            counter[DuplicateHashableCapturedQuery(captured_query)] += 1
+            counter[DuplicateHashableCapturedQuery(captured_query)] += 1  # type: ignore
 
         return counter
 
@@ -210,7 +210,7 @@ class CapturedQueryClassifier:
         counter: typing.Counter[CapturedQuery] = Counter()
         for captured_query in self.filtered_captured_queries:
 
-            counter[SimilarHashableCapturedQuery(captured_query)] += 1
+            counter[SimilarHashableCapturedQuery(captured_query)] += 1  # type: ignore
 
         return counter
 
@@ -232,7 +232,7 @@ class CapturedQueryClassifier:
                 if duplicate_min_count is not None:
                     if (
                         self.duplicates_counter[
-                            DuplicateHashableCapturedQuery(captured_query)
+                            DuplicateHashableCapturedQuery(captured_query)  # type: ignore
                         ]
                         > duplicate_min_count
                     ):

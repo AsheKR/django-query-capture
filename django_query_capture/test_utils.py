@@ -5,7 +5,7 @@ import typing
 
 from contextlib import ContextDecorator, ExitStack
 
-from django.test import override_settings
+from django.test import TestCase, override_settings
 
 from django_query_capture import query_capture
 from django_query_capture.settings import get_config
@@ -15,7 +15,7 @@ from django_query_capture.utils import get_stack_prefix, truncate_string
 class AssertInefficientQuery(ContextDecorator):
     def __init__(
         self,
-        test_case,
+        test_case: TestCase,
         num: typing.Optional[int] = None,
         seconds: typing.Optional[int] = None,
         ignore_patterns: typing.Optional[typing.List[str]] = None,
