@@ -19,16 +19,16 @@ If you look at the example below how you implemented the class, you may have an 
 
 - [SimplePresenter][presenter.simple.SimplePresenter]
 
-![simple_query_presenter.png](assets/images/api_guide/simple_query_presenter.png)
+![simple_query_presenter.png](../assets/images/api_guide/simple_query_presenter.png)
 
 - [RawLinePresenter][presenter.raw_line.RawLinePresenter]
 
-![raw_line_presenter.png](assets/images/api_guide/raw_line_presenter.png)
+![raw_line_presenter.png](../assets/images/api_guide/raw_line_presenter.png)
 
 - [PrettyPresenter][presenter.pretty.PrettyPresenter]
 
-![pretty_presenter.png](assets/images/api_guide/pretty_presenter.png)
+![pretty_presenter.png](../assets/images/api_guide/pretty_presenter.png)
 
 - [OnlySlowQueryPresenter][presenter.only_slow_query.OnlySlowQueryPresenter]
 
-![only_slow_query_presenter.png](assets/images/api_guide/only_slow_query_presenter.png)
+![only_slow_query_presenter.png](../assets/images/api_guide/only_slow_query_presenter.png)

@@ -58,19 +58,19 @@ QUERY_CAPTURE = {
     It applies only to table colors.
 
     - `red`
-    ![color_red.png](assets/images/settings/color_red.png)
+    ![color_red.png](../assets/images/settings/color_red.png)
     - `green`
-    ![color_green.png](assets/images/settings/color_green.png)
+    ![color_green.png](../assets/images/settings/color_green.png)
     - `yellow`
-    ![color_yellow.png](assets/images/settings/color_yellow.png)
+    ![color_yellow.png](../assets/images/settings/color_yellow.png)
     - `blue`
-    ![color_blue.png](assets/images/settings/color_blue.png)
+    ![color_blue.png](../assets/images/settings/color_blue.png)
     - `magenta`
-    ![color_magenta.png](assets/images/settings/color_magenta.png)
+    ![color_magenta.png](../assets/images/settings/color_magenta.png)
     - `cyan`
-    ![color_cyan.png](assets/images/settings/color_cyan.png)
+    ![color_cyan.png](../assets/images/settings/color_cyan.png)
     - `white`
-    ![color_white.png](assets/images/settings/color_white.png)
+    ![color_white.png](../assets/images/settings/color_white.png)
 
 ### PRETTY
 
@@ -84,35 +84,35 @@ QUERY_CAPTURE = {
     All settings can be found [here](https://github.com/astanin/python-tabulate#table-format).
 
     - `plain`
-    ![table_plain.png](assets/images/settings/table_plain.png)
+    ![table_plain.png](../assets/images/settings/table_plain.png)
     - `simple`
-    ![table_simple.png](assets/images/settings/table_simple.png)
+    ![table_simple.png](../assets/images/settings/table_simple.png)
     - `github`
-    ![table_github.png](assets/images/settings/table_githubng)
+    ![table_github.png](../assets/images/settings/table_githubng)
     - `grid`
-    ![table_grid.png](assets/images/settings/table_grid.png)
+    ![table_grid.png](../assets/images/settings/table_grid.png)
     - `fancy_grid`
-    ![table_fancy_grid.png](assets/images/settings/table_fancy_grid.png)
+    ![table_fancy_grid.png](../assets/images/settings/table_fancy_grid.png)
     - `presto`
-    ![table_presto.png](assets/images/settings/table_presto.png)
+    ![table_presto.png](../assets/images/settings/table_presto.png)
     - `pretty`
-    ![table_pretty.png](assets/images/settings/table_pretty.png)
+    ![table_pretty.png](../assets/images/settings/table_pretty.png)
       - `psql`
-    ![table_psql.png](assets/images/settings/table_psql.png)
+    ![table_psql.png](../assets/images/settings/table_psql.png)
     - `pipe`
-    ![table_pipe.png](assets/images/settings/table_pipe.png)
+    ![table_pipe.png](../assets/images/settings/table_pipe.png)
     - `orgtbl`
-    ![table_orgtbl.png](assets/images/settings/table_orgtbl.png)
+    ![table_orgtbl.png](../assets/images/settings/table_orgtbl.png)
 
 ??? example "Custom sql color format example"
 
     All settings can be found [here](https://pygments.org/styles/).
 
     - `zenburn`
-    ![sql_zenburn.png](assets/images/settings/sql_zenburn.png)
+    ![sql_zenburn.png](../assets/images/settings/sql_zenburn.png)
     - `material`
-    ![sql_material.png](assets/images/settings/sql_material.png)
+    ![sql_material.png](../assets/images/settings/sql_material.png)
     - `one-dark`
-    ![sql_one_dark.png](assets/images/settings/sql_one_dark.png)
+    ![sql_one_dark.png](../assets/images/settings/sql_one_dark.png)
     - `dracula`
-    ![sql_dracula.png](assets/images/settings/sql_dracula.png)
+    ![sql_dracula.png](../assets/images/settings/sql_dracula.png)
