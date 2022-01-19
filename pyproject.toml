@@ -41,7 +41,7 @@ classifiers = [  #! Update me
 [tool.poetry.dependencies]
 python = "^3.8"
 
-Django = "3.2.11"
+Django = "^3.2.11"
 tabulate = "^0.8.9"
 Pygments = "^2.11.2"
 
