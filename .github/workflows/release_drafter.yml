@@ -23,7 +23,7 @@ jobs:
       - name: Install poetry
         run: make poetry-download
 
-      - uses: release-drafter/release-drafter@v5.17.5
+      - uses: release-drafter/release-drafter@v5.17.6
         id: release-drafter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
