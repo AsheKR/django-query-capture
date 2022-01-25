@@ -454,7 +454,7 @@ mkdocs = ">=1.2"
 
 [[package]]
 name = "mkdocs-gen-files"
-version = "0.3.3"
+version = "0.3.4"
 description = "MkDocs plugin to programmatically generate documentation pages during the build"
 category = "dev"
 optional = false
@@ -1044,7 +1044,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "4d059faea314d88b25cc8082dda66d833368eef6d6657e0595ebd7600ce53f1f"
+content-hash = "c6cb1231d2e596ee7ee98b289b74ac59cf701fc18860e413167fd752f67282c7"
 
 [metadata.files]
 asgiref = [
@@ -1361,8 +1361,8 @@ mkdocs-coverage = [
     {file = "mkdocs_coverage-0.2.5-py3-none-any.whl", hash = "sha256:d94a5c020ff37bd59b7bd27424df1ce57e5437597a627edcf6116366f96997e6"},
 ]
 mkdocs-gen-files = [
-    {file = "mkdocs-gen-files-0.3.3.tar.gz", hash = "sha256:0bfe82ecb62b3d2064349808c898063ad955a77804436e0a54fa029414c893bb"},
-    {file = "mkdocs_gen_files-0.3.3-py3-none-any.whl", hash = "sha256:bcfbaa496c5fc8164a9a243963e444c8750c619e18cd54e217549586c9132461"},
+    {file = "mkdocs-gen-files-0.3.4.tar.gz", hash = "sha256:c69188486bdc1e74bd2b9b7ebbde9f9eb21052ae7762f1b35420cfbfc6d7122e"},
+    {file = "mkdocs_gen_files-0.3.4-py3-none-any.whl", hash = "sha256:07f43245c87a03cfb03884e767655c2a61def24d07e47fb3a8d26b1581524d6a"},
 ]
 mkdocs-git-revision-date-localized-plugin = [
     {file = "mkdocs-git-revision-date-localized-plugin-0.11.1.tar.gz", hash = "sha256:ce19b3af90f076d1b55b68f841059c9fcb7c9d53f93b3323f0a493492f4cc841"},
