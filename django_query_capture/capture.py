@@ -99,7 +99,7 @@ class native_query_capture(ContextDecorator):
             stack
             for stack in inspect.stack()
             if not stack.filename.startswith(python_library_directory)
-        ][1]
+        ][0]
         file_name = called_by.filename
         function_name = called_by.function
         line_no = called_by.lineno
