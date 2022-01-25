@@ -6,10 +6,15 @@ import typing
 from contextlib import ContextDecorator, ExitStack
 
 from django.test import TestCase, override_settings
+from django.utils.module_loading import import_string
 
-from django_query_capture import query_capture
+from django_query_capture import BasePresenter, query_capture
 from django_query_capture.settings import get_config
-from django_query_capture.utils import get_stack_prefix, truncate_string
+from django_query_capture.utils import (
+    CaptureStdOutToString,
+    get_stack_prefix,
+    truncate_string,
+)
 
 
 class AssertInefficientQuery(ContextDecorator):
@@ -31,6 +36,9 @@ class AssertInefficientQuery(ContextDecorator):
         self.ignore_patterns = ignore_patterns or get_config()["IGNORE_SQL_PATTERNS"]
         self.num = num
         self.seconds = seconds
+        self.presenter_cls: typing.Type[BasePresenter] = import_string(
+            get_config()["PRESENTER"]
+        )
 
     def __enter__(self):
         """
@@ -61,22 +69,9 @@ class AssertInefficientQuery(ContextDecorator):
         And if there is an item above the threshold, the test fails and the failed content is printed.
         """
         self._exit_stack.close()
-        classifier = self.query_capture.classifier
-        result = ""
-        if classifier["duplicates_counter_over_threshold"]:
-            for captured_query, count in classifier[
-                "duplicates_counter_over_threshold"
-            ].items():
-                result += f'\n{get_stack_prefix(captured_query)} Duplicates {count} times: {truncate_string(captured_query["sql"], 25)}'
 
-        if classifier["similar_counter_over_threshold"]:
-            for captured_query, count in classifier[
-                "similar_counter_over_threshold"
-            ].items():
-                result += f'\n{get_stack_prefix(captured_query)} Similar {count} times: {truncate_string(captured_query["raw_sql"], 25)}'
-
-        if classifier["slow_captured_queries"]:
-            for captured_query in classifier["slow_captured_queries"]:
-                result += f'\n{get_stack_prefix(captured_query)} Slow {captured_query["duration"]:.2f} seconds: {truncate_string(captured_query["raw_sql"], 25)}'
-
-        self.test_case.assertFalse(bool(result), result)
+        with CaptureStdOutToString() as stdout:
+            self.presenter_cls(self.query_capture.classifier).print()
+            result = stdout.getvalue()
+        if self.query_capture.classifier["has_over_threshold"]:
+            raise AssertionError(result)
