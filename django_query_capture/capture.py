@@ -7,6 +7,7 @@ import typing
 import inspect
 import time
 from contextlib import ContextDecorator, ExitStack
+from distutils.sysconfig import get_python_lib
 
 from django.db import connection
 from django.db.backends.dummy.base import DatabaseWrapper
@@ -93,11 +94,13 @@ class native_query_capture(ContextDecorator):
         Returns:
             Returns the result of the exit for the basic operation of `connection.execute_wrapper`.
         """
-        call_stack = [
-            stack for stack in inspect.stack() if "site-packages" not in stack.filename
-        ]
-        called_by = call_stack[1]
-        file_name = called_by.filename.split("/")[-1]
+        python_library_directory = get_python_lib()
+        called_by = [
+            stack
+            for stack in inspect.stack()
+            if not stack.filename.startswith(python_library_directory)
+        ][0]
+        file_name = called_by.filename
         function_name = called_by.function
         line_no = called_by.lineno
         start_timestamp = time.monotonic()
