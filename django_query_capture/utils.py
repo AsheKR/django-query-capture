@@ -1,7 +1,22 @@
+import io
+import sys
+from contextlib import ContextDecorator
+
 from django.utils import termcolors
 
 from django_query_capture.capture import CapturedQuery
 from django_query_capture.settings import get_config
+
+
+class CaptureStdOutToString(ContextDecorator):
+    def __enter__(self) -> sys.stdout:
+        self.old_stdout = sys.stdout
+        new_stdout = io.StringIO()
+        sys.stdout = new_stdout
+        return sys.stdout
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        sys.stdout = self.old_stdout
 
 
 def colorize(value: str, is_warning: bool) -> str:
