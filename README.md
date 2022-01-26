@@ -94,7 +94,7 @@ from django_query_capture.test_utils import AssertInefficientQuery
 
 class AssertInefficientQueryTests(TestCase):
     def test_assert_inefficient_query(self):
-          with AssertInefficientQuery(self, num=19):
+          with AssertInefficientQuery(num=19):
             self.client.get('/api/reporter')  # desire threshold count 19 but, /api/reporter duplicate query: 20, so raise error
 ```
 
