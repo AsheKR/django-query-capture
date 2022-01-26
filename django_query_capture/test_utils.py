@@ -5,34 +5,27 @@ import typing
 
 from contextlib import ContextDecorator, ExitStack
 
-from django.test import TestCase, override_settings
+from django.test import override_settings
 from django.utils.module_loading import import_string
 
 from django_query_capture import BasePresenter, query_capture
 from django_query_capture.settings import get_config
-from django_query_capture.utils import (
-    CaptureStdOutToString,
-    get_stack_prefix,
-    truncate_string,
-)
+from django_query_capture.utils import CaptureStdOutToString
 
 
 class AssertInefficientQuery(ContextDecorator):
     def __init__(
         self,
-        test_case: TestCase,
         num: typing.Optional[int] = None,
         seconds: typing.Optional[int] = None,
         ignore_patterns: typing.Optional[typing.List[str]] = None,
     ):
         """
         Args:
-            test_case: Class-based tests use `self`.
             num: `Duplicate`, `Similar` Threshold, The value of the setting is ignored.
             seconds: `Slow` Threshold, The value of the setting is ignored.
             ignore_patterns: A list of patterns to ignore IGNORE_SQL_PATTERNS of settings.
         """
-        self.test_case = test_case
         self.ignore_patterns = ignore_patterns or get_config()["IGNORE_SQL_PATTERNS"]
         self.num = num
         self.seconds = seconds
