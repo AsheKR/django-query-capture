@@ -926,11 +926,6 @@
 </thead>
 <tbody>
 <tr>
-<td>test_case</td>
-<td>In Class-based TestCase, put self.</td>
-<td>All instances that inherited <code>django.test.testcases.TestCase</code></td>
-</tr>
-<tr>
 <td>num</td>
 <td>If the duplication, Similar threshold, and query exceed num, the test fails.</td>
 <td><code>Optional[int]</code></td>
@@ -956,7 +951,7 @@
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">class</span> <span class="nc">AssertInefficientQueryTests</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  <span class="k">def</span> <span class="nf">test_assert_inefficient_query</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">with</span> <span class="n">AssertInefficientQuery</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">19</span><span class="p">):</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">with</span> <span class="n">AssertInefficientQuery</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">19</span><span class="p">):</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>      <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/api/reporter&#39;</span><span class="p">)</span>  <span class="c1"># /api/reporter duplicate query: 20, so raise error</span>
 </code></pre></div>
 </details>
@@ -968,7 +963,7 @@
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">class</span> <span class="nc">AssertInefficientQueryTests</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  <span class="k">def</span> <span class="nf">test_assert_inefficient_query</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">with</span> <span class="n">AssertInefficientQuery</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">with</span> <span class="n">AssertInefficientQuery</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>      <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/api/reporter&#39;</span><span class="p">)</span>  <span class="c1"># /api/reporter api took more than a second. so raise error</span>
 </code></pre></div>
 </details>
@@ -978,7 +973,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 18, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 26, 2022</span>
       
     
   </small>
