@@ -2,8 +2,8 @@
 Test utility to help you check Duplicate, Similar, and Slow queries in the test
 """
 import typing
-
 from contextlib import ContextDecorator, ExitStack
+from functools import wraps
 
 from django.test import override_settings
 from django.utils.module_loading import import_string
@@ -11,6 +11,11 @@ from django.utils.module_loading import import_string
 from django_query_capture import BasePresenter, query_capture
 from django_query_capture.settings import get_config
 from django_query_capture.utils import CaptureStdOutToString
+
+__all__ = (
+    "AssertInefficientQuery",
+    "assert_inefficient_query",
+)
 
 
 class AssertInefficientQuery(ContextDecorator):
@@ -68,3 +73,31 @@ class AssertInefficientQuery(ContextDecorator):
             result = stdout.getvalue()
         if self.query_capture.classifier["has_over_threshold"]:
             raise AssertionError(result)
+
+
+def assert_inefficient_query(num=1):
+    """
+    Use when you want to apply query check logic to the entire method instead of creating a context block using with statement.
+    AssertionError occurs when duplicate/similar queries exceeding the specified num occurs.
+
+    Args:
+        num: Maximum allowable duplicate/simipar queries
+
+    Examples:
+        @assert_inefficient_query(1)
+        def test_something(self):
+            ...
+    """
+
+    def decorator(method):
+        @wraps(method)
+        def wrapper(self, *args, **kwargs):
+            context = AssertInefficientQuery(num)
+            if method is None:
+                return context
+            with context:
+                method(self, *args, **kwargs)
+
+        return wrapper
+
+    return decorator

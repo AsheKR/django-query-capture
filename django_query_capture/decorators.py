@@ -3,7 +3,6 @@ The highest level of module.<br>
 It is a module responsible for both query capture, classification, and output.
 """
 import typing
-
 from contextlib import ContextDecorator, ExitStack
 
 from django.utils.module_loading import import_string
