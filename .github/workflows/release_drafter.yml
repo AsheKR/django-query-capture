@@ -37,7 +37,7 @@ jobs:
         run: |
           poetry version ${{ steps.release-drafter.outputs.tag_name }}
 
-      - uses: EndBug/add-and-commit@v8
+      - uses: EndBug/add-and-commit@v9
         if: steps.release-drafter.outputs.tag_name != steps.get-current-poetry-version.outputs.POETRY_VERSION
         with:
           author_name: ReleaseDrafter
