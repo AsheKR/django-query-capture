@@ -813,7 +813,7 @@ six = ">=1.5"
 
 [[package]]
 name = "pytkdocs"
-version = "0.16.0"
+version = "0.16.1"
 description = "Load Python objects documentation."
 category = "dev"
 optional = false
@@ -1528,8 +1528,8 @@ python-dateutil = [
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
 ]
 pytkdocs = [
-    {file = "pytkdocs-0.16.0-py3-none-any.whl", hash = "sha256:098405ff347797cfb887a4d78f161372109bfbfffa0f8ee8daa5e2b8a8caba4b"},
-    {file = "pytkdocs-0.16.0.tar.gz", hash = "sha256:274407bcefec58d7e411adb03b84da49120107912b1697d17d4a3aea0583f388"},
+    {file = "pytkdocs-0.16.1-py3-none-any.whl", hash = "sha256:a8c3f46ecef0b92864cc598e9101e9c4cf832ebbf228f50c84aa5dd850aac379"},
+    {file = "pytkdocs-0.16.1.tar.gz", hash = "sha256:e2ccf6dfe9dbbceb09818673f040f1a7c32ed0bffb2d709b06be6453c4026045"},
 ]
 pytz = [
     {file = "pytz-2021.3-py2.py3-none-any.whl", hash = "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c"},
