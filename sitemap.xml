@@ -2,127 +2,127 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ashekr.github.io/django-query-capture/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/code_of_conduct/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/contributing/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/license/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/api_guide/capture_query/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/api_guide/captured_query/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/api_guide/classified_query/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/api_guide/presenter/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/api_guide/test_util/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/home/customize_presenter/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/home/settings/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>None</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/capture/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/classify/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/decorators/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/middleware/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/settings/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/test_utils/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/utils/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/presenter/base/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/presenter/only_slow_query/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/presenter/pretty/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/presenter/raw_line/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/reference/presenter/simple/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ashekr.github.io/django-query-capture/coverage/</loc>
-         <lastmod>2022-03-27</lastmod>
+         <lastmod>2022-04-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
