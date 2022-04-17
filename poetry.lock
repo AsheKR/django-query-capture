@@ -432,15 +432,15 @@ i18n = ["babel (>=2.9.0)"]
 
 [[package]]
 name = "mkdocs-autorefs"
-version = "0.3.1"
+version = "0.4.1"
 description = "Automatically link across pages in MkDocs."
 category = "dev"
 optional = false
-python-versions = ">=3.6.2,<4.0.0"
+python-versions = ">=3.7"
 
 [package.dependencies]
-Markdown = ">=3.3,<4.0"
-mkdocs = ">=1.1,<2.0"
+Markdown = ">=3.3"
+mkdocs = ">=1.1"
 
 [[package]]
 name = "mkdocs-coverage"
@@ -1062,7 +1062,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "302cf0d089837819591e32759b0f3c88c538c638461abcad2aa297d9ad58fef3"
+content-hash = "0891c1931e2a1ae534a5e8255a4c5ec990d46649cd1a4c95a6565473601b3c43"
 
 [metadata.files]
 asgiref = [
@@ -1386,8 +1386,8 @@ mkdocs = [
     {file = "mkdocs-1.3.0.tar.gz", hash = "sha256:b504405b04da38795fec9b2e5e28f6aa3a73bb0960cb6d5d27ead28952bd35ea"},
 ]
 mkdocs-autorefs = [
-    {file = "mkdocs-autorefs-0.3.1.tar.gz", hash = "sha256:12baad29359f468b44d980ed35b713715409097a1d8e3d0ef90962db95205eda"},
-    {file = "mkdocs_autorefs-0.3.1-py3-none-any.whl", hash = "sha256:f0fd7c115eaafda7fb16bf5ff5d70eda55d7c0599eac64f8b25eacf864312a85"},
+    {file = "mkdocs-autorefs-0.4.1.tar.gz", hash = "sha256:70748a7bd025f9ecd6d6feeba8ba63f8e891a1af55f48e366d6d6e78493aba84"},
+    {file = "mkdocs_autorefs-0.4.1-py3-none-any.whl", hash = "sha256:a2248a9501b29dc0cc8ba4c09f4f47ff121945f6ce33d760f145d6f89d313f5b"},
 ]
 mkdocs-coverage = [
     {file = "mkdocs-coverage-0.2.5.tar.gz", hash = "sha256:6a9a796a50b873a62f273d4ac43f41f1f96c1c6c2154038ab6072e253818490a"},
