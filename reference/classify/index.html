@@ -1190,11 +1190,11 @@
 <a id="classify"></a>
     <div class="doc doc-contents first">
 
-      <p>If <a href="../capture/#capture.native_query_capture">native_query_capture</a> has received data, it serves to refine the data into the necessary data.</p>
+      <p>If <a class="autorefs autorefs-internal" href="../capture/#capture.native_query_capture">native_query_capture</a> has received data, it serves to refine the data into the necessary data.</p>
 <details class="warning" open="open">
 <summary>HashableCapturedQuery</summary>
 <p>In order to use <code>collection.Counter</code>, it was necessary to change the dict form to a hashable dict form.<br>
-So, to classify <code>Duplicate</code> and <code>Similar</code>, we convert <a href="../capture/#capture.CapturedQuery">CapturedQuery</a> dict into HashableDict form and use it as Counter's key.<br>
+So, to classify <code>Duplicate</code> and <code>Similar</code>, we convert <a class="autorefs autorefs-internal" href="../capture/#capture.CapturedQuery">CapturedQuery</a> dict into HashableDict form and use it as Counter's key.<br>
 If there is a better way, feel free to leave it as an issue or PR.</p>
 </details>
 
@@ -1222,7 +1222,7 @@ CapturedQueryClassifier        </code>
 
     <div class="doc doc-contents ">
 
-      <p>This is the result of Classifier refining list of <a href="../capture/#capture.CapturedQuery">CapturedQuery</a>.
+      <p>This is the result of Classifier refining list of <a class="autorefs autorefs-internal" href="../capture/#capture.CapturedQuery">CapturedQuery</a>.
 You can freely make output this data from the <code>Presenter</code>.</p>
 
         <details class="quote">
@@ -1530,7 +1530,7 @@ You can freely make output this data from the <code>Presenter</code>.</p>
   <tbody>
     <tr>
       <td><code>Counter[django_query_capture.capture.CapturedQuery]</code></td>
-      <td><p>CaptureQuery Counter that exceeds <a href="../../home/settings/">DUPLICATE_MIN_COUNT</a> among <a href="#classify.CapturedQueryClassifier.duplicates_counter">duplicates_counter</a>.</p></td>
+      <td><p>CaptureQuery Counter that exceeds <a href="../../home/settings/">DUPLICATE_MIN_COUNT</a> among <a class="autorefs autorefs-internal" href="#classify.CapturedQueryClassifier.duplicates_counter">duplicates_counter</a>.</p></td>
     </tr>
   </tbody>
 </table>    </div>
@@ -1605,7 +1605,7 @@ If any of the three has exceeded the threshold, return <code>True</code>.</p></t
   <tbody>
     <tr>
       <td><code>Union[Tuple[django_query_capture.capture.CapturedQuery, int], Tuple[NoneType]]</code></td>
-      <td><p>most frequent <code>Counter</code> among <a href="#classify.CapturedQueryClassifier.duplicates_counter">duplicates_counter</a>.</p></td>
+      <td><p>most frequent <code>Counter</code> among <a class="autorefs autorefs-internal" href="#classify.CapturedQueryClassifier.duplicates_counter">duplicates_counter</a>.</p></td>
     </tr>
   </tbody>
 </table>    </div>
@@ -1642,7 +1642,7 @@ If any of the three has exceeded the threshold, return <code>True</code>.</p></t
   <tbody>
     <tr>
       <td><code>Union[Tuple[django_query_capture.capture.CapturedQuery, int], Tuple[NoneType]]</code></td>
-      <td><p>most frequent <code>Counter</code> among <a href="#classify.CapturedQueryClassifier.similar_counter">duplicates_counter</a>.</p></td>
+      <td><p>most frequent <code>Counter</code> among <a class="autorefs autorefs-internal" href="#classify.CapturedQueryClassifier.similar_counter">duplicates_counter</a>.</p></td>
     </tr>
   </tbody>
 </table>    </div>
@@ -1755,7 +1755,7 @@ If any of the three has exceeded the threshold, return <code>True</code>.</p></t
   <tbody>
     <tr>
       <td><code>Counter[django_query_capture.capture.CapturedQuery]</code></td>
-      <td><p><a href="../capture/#capture.CapturedQuery">CaptureQuery</a> <code>Counter</code> that exceeds <a href="../../home/settings/">SIMILAR_MIN_COUNT</a> among <a href="#classify.CapturedQueryClassifier.duplicates_counter">duplicates_counter</a>, it doesn't overlap with Duplicates.</p></td>
+      <td><p><a class="autorefs autorefs-internal" href="../capture/#capture.CapturedQuery">CaptureQuery</a> <code>Counter</code> that exceeds <a href="../../home/settings/">SIMILAR_MIN_COUNT</a> among <a class="autorefs autorefs-internal" href="#classify.CapturedQueryClassifier.duplicates_counter">duplicates_counter</a>, it doesn't overlap with Duplicates.</p></td>
     </tr>
   </tbody>
 </table>    </div>
@@ -1793,7 +1793,7 @@ If any of the three has exceeded the threshold, return <code>True</code>.</p></t
   <tbody>
     <tr>
       <td><code>List[django_query_capture.capture.CapturedQuery]</code></td>
-      <td><p><a href="../capture/#capture.CapturedQuery">CapturedQuery</a> list with time exceeding <a href="home/settings">SLOW_MIN_SECOND</a></p></td>
+      <td><p><a class="autorefs autorefs-internal" href="../capture/#capture.CapturedQuery">CapturedQuery</a> list with time exceeding <a href="home/settings">SLOW_MIN_SECOND</a></p></td>
     </tr>
   </tbody>
 </table>    </div>
@@ -1947,13 +1947,13 @@ If any of the three has exceeded the threshold, return <code>True</code>.</p></t
       <tr>
         <td><code>captured_queries</code></td>
         <td><code>List[django_query_capture.capture.CapturedQuery]</code></td>
-        <td><p>A list of <a href="../capture/#capture.CapturedQuery">CapturedQuery</a> collected by <a href="../capture/#capture.native_query_capture">native_query_capture</a>.</p></td>
+        <td><p>A list of <a class="autorefs autorefs-internal" href="../capture/#capture.CapturedQuery">CapturedQuery</a> collected by <a class="autorefs autorefs-internal" href="../capture/#capture.native_query_capture">native_query_capture</a>.</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>ignore_patterns</code></td>
         <td><code>Optional[List[str]]</code></td>
-        <td><p>REGEX string list that will not be used for classification among <a href="../capture/#capture.CapturedQuery">CapturedQuery</a>.</p></td>
+        <td><p>REGEX string list that will not be used for classification among <a class="autorefs autorefs-internal" href="../capture/#capture.CapturedQuery">CapturedQuery</a>.</p></td>
         <td><code>None</code></td>
       </tr>
   </tbody>
@@ -2028,7 +2028,7 @@ If any of the three has exceeded the threshold, return <code>True</code>.</p></t
   <tbody>
     <tr>
       <td><code>bool</code></td>
-      <td><p>It is a list of <a href="../capture/#capture.CapturedQuery">CapturedQuery</a> that is not caught in ignore_patterns, that is, a classification target.</p></td>
+      <td><p>It is a list of <a class="autorefs autorefs-internal" href="../capture/#capture.CapturedQuery">CapturedQuery</a> that is not caught in ignore_patterns, that is, a classification target.</p></td>
     </tr>
   </tbody>
 </table>
@@ -2081,7 +2081,7 @@ ClassifiedQuery            (<span title="dict">dict</span>)
 
     <div class="doc doc-contents ">
 
-      <p>This is the result of Classifier refining list of <a href="../capture/#capture.CapturedQuery">CapturedQuery</a>.
+      <p>This is the result of Classifier refining list of <a class="autorefs autorefs-internal" href="../capture/#capture.CapturedQuery">CapturedQuery</a>.
 You can freely make output this data from the <code>Presenter</code>.</p>
 
         <details class="quote">
