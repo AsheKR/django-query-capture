@@ -73,7 +73,7 @@ mkdocs-literate-nav = "^0.4.1"
 mkdocs-coverage = "^0.2.5"
 mkdocs-section-index = "^0.3.3"
 mkdocs-autorefs = "^0.4.1"
-mkdocs-git-revision-date-localized-plugin = "^1.0.0"
+mkdocs-git-revision-date-localized-plugin = "^1.0.1"
 
 [tool.black]
 # https://github.com/psf/black
