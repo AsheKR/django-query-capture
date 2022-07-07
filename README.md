@@ -30,6 +30,18 @@ Some reasons you might want to use django-query-capture:
 - Fully Documented
 - It supports Type hint everywhere.
 
+## Installation
+
+```bash
+pip install -U django-query-capture
+```
+
+or install with `Poetry`
+
+```bash
+poetry add django-query-capture
+```
+
 ## Simple Usage
 
 - Just add it to Middleware without any other settings, and it will be output whenever a query occurs.
@@ -69,7 +81,6 @@ When used as Context, you can check the query in real time.
 
 ```python
 from django_query_capture import query_capture
-
 from tests.news.models import Reporter
 
 @query_capture()
@@ -88,9 +99,7 @@ Test code can capture inefficient queries through the `AssertInefficientQuery` U
 
 ```python
 from django.test import TestCase
-
 from django_query_capture.test_utils import AssertInefficientQuery
-
 
 class AssertInefficientQueryTests(TestCase):
     def test_assert_inefficient_query(self):
@@ -98,16 +107,20 @@ class AssertInefficientQueryTests(TestCase):
             self.client.get('/api/reporter')  # desire threshold count 19 but, /api/reporter duplicate query: 20, so raise error
 ```
 
-## Installation
+You can also use a `assert_inefficient_query` decorator to make the test fail when a duplicate query occurs
 
-```bash
-pip install -U django-query-capture
-```
+```python
+from django.test import TestCase
+from news.models import Reporter
+from django_query_capture.test_utils import assert_inefficient_query
 
-or install with `Poetry`
-
-```bash
-poetry add django-query-capture
+class AssertInefficientQueryTests(ConsoleOutputTestCaseMixin, TestCase):
+    @assert_inefficient_query(200)
+    def test_assert_inefficient_query_with_decorator(self):
+        [list(Reporter.objects.all()) for i in range(200)]
+        [Reporter.objects.create(full_name=f"reporter-{i}") for i in range(200)]
+        
+# If change the number(200) in @assert_inefficient_query to 199, the test fails.
 ```
 
 ## Full Documentation
