@@ -4,7 +4,7 @@ colorama==0.4.4; python_version >= "3.6" and python_full_version >= "3.6.2" and 
 commonmark==0.9.1; python_full_version >= "3.6.2" and python_full_version < "4.0.0"
 django==3.2.11; python_version >= "3.6"
 pygments==2.11.2; python_version >= "3.5"
-pytz==2021.3; python_version >= "3.6"
+pytz==2022.2; python_version >= "3.6"
 rich==11.0.0; python_full_version >= "3.6.2" and python_full_version < "4.0.0"
 shellingham==1.4.0; python_version >= "3.6"
 sqlparse==0.4.2; python_version >= "3.6"
