@@ -57,7 +57,7 @@ mypy:
 .PHONY: check-safety
 check-safety:
 	poetry check
-	poetry run safety check --full-report
+	poetry export --without-hashes -f requirements.txt | poetry run safety check --full-report --stdin
 	poetry run bandit -ll --recursive django_query_capture tests
 
 .PHONY: lint
