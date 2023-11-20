@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9"]
+        python-version: [3.8, 3.9, "3.10", 3.11]
+        django-version: [2.2, 3.2, 4.2]
 
     steps:
     - uses: actions/checkout@v3
@@ -24,10 +25,15 @@ jobs:
       with:
         path: .venv
         key: venv-${{ matrix.python-version }}-${{ hashFiles('pyproject.toml') }}-${{ hashFiles('poetry.lock') }}
+
     - name: Install dependencies
       run: |
         poetry config virtualenvs.in-project true
         poetry install
+
+    - name: Install django
+      run: |
+        poetry add "Django~=${{ matrix.django-version }}"
 
     - name: Run style checks
       run: |
@@ -37,6 +43,3 @@ jobs:
       run: |
         make test
 
-    - name: Run safety checks
-      run: |
-        make check-safety

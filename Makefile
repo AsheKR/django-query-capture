@@ -10,11 +10,11 @@ VERSION := latest
 #* Poetry
 .PHONY: poetry-download
 poetry-download:
-	curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | $(PYTHON) -
+	pip install poetry
 
 .PHONY: poetry-remove
 poetry-remove:
-	curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | $(PYTHON) - --uninstall
+	pip uninstall poetry
 
 #* Installation
 .PHONY: install
@@ -57,7 +57,7 @@ mypy:
 .PHONY: check-safety
 check-safety:
 	poetry check
-	poetry run safety check --full-report
+	poetry export --without-hashes -f requirements.txt | poetry run safety check --full-report --stdin
 	poetry run bandit -ll --recursive django_query_capture tests
 
 .PHONY: lint
